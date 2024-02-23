@@ -1,7 +1,7 @@
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
 // Connection URI
-const uri = 'mongodb+srv://jvalen01:<StudentiBergen>@cluster251.3ybeuw9.mongodb.net/?retryWrites=true&w=majority&appName=Cluster251';
+const uri = 'mongodb+srv://jvalen:StudentiBergen@cluster251.2bmzlk3.mongodb.net/?retryWrites=true&w=majority&appName=Cluster251';
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
