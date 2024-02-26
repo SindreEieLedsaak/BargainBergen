@@ -23,43 +23,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-// GET: Retrieve a single user by id
-router.get('/:id', async (req, res) => {
-  try {
-    const user = await User.findById(req.params.id);
-    if (!user) {
-      return res.status(404).send();
-    }
-    res.status(200).send(user);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-});
 
-// PATCH: Update a user by id
-router.patch('/:id', async (req, res) => {
-  try {
-    const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
-    if (!user) {
-      return res.status(404).send();
-    }
-    res.send(user);
-  } catch (error) {
-    res.status(400).send(error);
-  }
-});
-
-// DELETE: Delete a user by id
-router.delete('/:id', async (req, res) => {
-  try {
-    const user = await User.findByIdAndDelete(req.params.id);
-    if (!user) {
-      return res.status(404).send();
-    }
-    res.send(user);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-});
 
 module.exports = router;
