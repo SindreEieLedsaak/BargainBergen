@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+require('dotenv').config();
 const userRoutes = require('./routes/userRoutes'); // Your user routes
 
 const app = express();
@@ -9,7 +10,7 @@ const PORT = process.env.PORT || 3001; // Default to 3001 if PORT is not set
 app.use(express.json());
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://jvalen:StudentiBergen@cluster251.2bmzlk3.mongodb.net/?retryWrites=true&w=majority&appName=Cluster251', {
+mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })

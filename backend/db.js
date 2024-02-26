@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+require('dotenv').config();
 
-const uri = 'mongodb+srv://jvalen:StudentiBergen@cluster251.2bmzlk3.mongodb.net/?retryWrites=true&w=majority&appName=Cluster251'; // Ensure this is set in your .env file
+const uri = process.env.MONGODB_URI; // Ensure this is set in your .env file
 
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB Connected'))
