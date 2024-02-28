@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import LoginPage from './components/LoginPage/LoginPage';
+import RegistrationPage from './components/RegistrationPage/RegistrationPage';
 import NavigationBar from './Components/Navigationbar';
 import { divider } from '@nextui-org/react';
 import MainPage	 from './Pages/MainPage';
@@ -28,9 +31,13 @@ function App() {
   }, []); // Empty dependency array means this effect will only run once, after the initial render
 
   return (
-    
-    <MainPage serverStatus={serverStatus} />
-   
+    <Router>
+      <Routes>
+        <Route path='/' element={<MainPage serverStatus={serverStatus} />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegistrationPage />} />
+      </Routes>
+    </Router>
   );
 }
 
