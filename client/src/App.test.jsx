@@ -13,7 +13,6 @@ global.fetch = jest.fn(() =>
 );
 
 beforeEach(() => {
-  // Clear all mocks before each test
   fetch.mockClear();
 });
 
@@ -31,7 +30,6 @@ describe('App component', () => {
   });
 
   test('handles server error response', async () => {
-    // Mock fetch to simulate an error response
     fetch.mockImplementationOnce(() =>
       Promise.resolve({
         ok: false,
@@ -44,7 +42,6 @@ describe('App component', () => {
   });
 
   test('handles server exception', async () => {
-    // Mock fetch to simulate an exception, like a network error
     fetch.mockImplementationOnce(() =>
       Promise.reject(new Error('Network error'))
     );
