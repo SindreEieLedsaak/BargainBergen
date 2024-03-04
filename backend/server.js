@@ -2,12 +2,13 @@ const express = require('express');
 const mongoose = require('mongoose');
 require('dotenv').config();
 const userRoutes = require('./routes/userRoutes'); // Your user routes
-
+const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 3001; // Default to 3001 if PORT is not set
-
+app.use(cors());
 // Middleware to parse JSON bodies
 app.use(express.json());
+
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI, {
@@ -19,7 +20,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 
   // Start listening for requests only after the database connection is established
   app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+    console.log('Server is running on port', PORT);
   });
 })
 .catch(err => {
@@ -33,6 +34,9 @@ app.use('/users', userRoutes);
 // Root route for basic API health check
 app.get('/', (req, res) => {
   res.send('API is running.');
+});
+app.get('/api', (req, res) => {
+  res.json({ message: 'API is running.' });
 });
 
 // Error handling middleware for routes not found
