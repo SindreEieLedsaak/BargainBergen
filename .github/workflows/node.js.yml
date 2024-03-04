@@ -1,4 +1,4 @@
-name: Node.js CI
+name: CI
 
 on:
   push:
@@ -7,24 +7,36 @@ on:
     branches: [ main, test-setup ]
 
 jobs:
-  test:
+  build-and-test:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [16.x]
+    services:
+      # This will create a service container for your application
+      # and allow Cypress tests to run against it.
+      app:
+        image: node:16
+        ports:
+          - 3000:3000
+        options: --health-cmd "curl --fail http://localhost:3000 || exit 1" --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
     - uses: actions/checkout@v3
 
-    # Install and test backend
-    - name: Set up Node.js ${{ matrix.node-version }}
+    - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-        cache-dependency-path: backend/package-lock.json
+        node-version: 16
 
+    # Install and build the client
+    - name: Install client dependencies
+      run: npm ci
+      working-directory: ./client
+
+    - name: Build client project
+      run: npm run build
+      working-directory: ./client
+
+    # Install and test the backend
     - name: Install backend dependencies
       run: npm ci
       working-directory: ./backend
@@ -32,16 +44,21 @@ jobs:
     - name: Test backend
       run: npm test
       working-directory: ./backend
-      env:
-        CI: true
 
-    # Install and test frontend
-    - name: Install frontend dependencies
+    # Install Cypress dependencies and run tests
+    - name: Cache Cypress binary
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/Cypress
+        key: cypress-${{ runner.os }}-cache-${{ hashFiles('**/package-lock.json') }}
+
+    - name: Install Cypress
       run: npm ci
       working-directory: ./client
 
-    - name: Test frontend
-      run: npm test
-      working-directory: ./client
-      env:
-        CI: true
+    - name: Run Cypress E2E tests
+      uses: cypress-io/github-action@v3
+      with:
+        start: npm start
+        wait-on: 'http://localhost:3000'
+        working-directory: ./client
