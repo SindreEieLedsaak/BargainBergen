@@ -1,4 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import NavigationBar from './Components/Navigationbar';
+import { divider } from '@nextui-org/react';
+import MainPage	 from './Pages/MainPage';
+
 
 function App() {
   const [serverStatus, setServerStatus] = useState('Checking server...');
@@ -24,10 +28,9 @@ function App() {
   }, []); // Empty dependency array means this effect will only run once, after the initial render
 
   return (
-    <div>
-      <h1>React + Vite App</h1>
-      <p>Server status: {serverStatus}</p>
-    </div>
+    
+    <MainPage serverStatus={serverStatus} />
+   
   );
 }
 
