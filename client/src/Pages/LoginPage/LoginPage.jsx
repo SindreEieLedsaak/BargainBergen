@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGoogle, faApple } from '@fortawesome/free-brands-svg-icons';
+import { faInfinity, faCheck, faShoppingCart, faLightbulb } from '@fortawesome/free-solid-svg-icons';
 import './LoginPage.css';
+
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -12,19 +16,19 @@ const LoginPage = () => {
 
   return (
     <div className="login-container">
-      <div className="plan-info">
-        <h2>Plan includes</h2>
-        <ul>
-          <li>Unlimited item listings</li>
-          <li>Free forever</li>
-          <li>Full access to sell and buy items</li>
-          <li>Pro tips for successful</li>
-        </ul>
-      </div>
+    <div className="plan-info">
+      <h2>Plan includes</h2>
+      <ul>
+        <li><FontAwesomeIcon icon={faInfinity} /> Unlimited item listings</li>
+        <li><FontAwesomeIcon icon={faCheck} /> Free forever</li>
+        <li><FontAwesomeIcon icon={faShoppingCart} /> Full access to sell and buy items</li>
+        <li><FontAwesomeIcon icon={faLightbulb} /> Pro tips for success</li>
+      </ul>
+    </div>
       <div className="login-form-container">
         <h1>Sign in</h1>
-        <button className="oauth-button">Sign in using Google</button>
-        <button className="oauth-button">Sign in using Apple</button>
+        <button className="oauth-button google"><FontAwesomeIcon icon={faGoogle} /> Sign in using Google</button>
+        <button className="oauth-button apple"><FontAwesomeIcon icon={faApple} /> Sign in using Apple</button>
         <form onSubmit={handleSignIn}>
           <input
             type="email"

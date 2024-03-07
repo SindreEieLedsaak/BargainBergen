@@ -19,7 +19,7 @@ beforeEach(() => {
 describe('App component', () => {
   test('displays the server status message', async () => {
     render(<App />);
-    const statusElement = await waitFor(() => screen.getByText(/Server status:/i));
+    const statusElement = await waitFor(() => screen.getByText(/Server Status/i));
     expect(statusElement).toBeInTheDocument();
   });
 
