@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGoogle, faApple } from "@fortawesome/free-brands-svg-icons";
+import { faGoogle, faApple, faFacebook } from "@fortawesome/free-brands-svg-icons";
 import {
   faInfinity,
   faCheck,
@@ -48,15 +48,22 @@ const LoginPage = () => {
           onClick={() =>
             login({
               authUrlParams: {
-                connection_id: import.meta.env.VITE_KINDE_CONNECTION_GOOGLE,
+                connection_id: process.env.VITE_KINDE_CONNECTION_GOOGLE,
               },
             })
           }
         >
           <FontAwesomeIcon icon={faGoogle} /> Sign in using Google
         </button>
-        <button className="oauth-button apple">
-          <FontAwesomeIcon icon={faApple} /> Sign in using Apple
+        <button className="oauth-button facebook"
+        onClick={() =>
+          login({
+            authUrlParams: {
+              connection_id: process.env.VITE_KINDE_CONNECTION_FACEBOOK,
+            },
+          })
+        }>
+          <FontAwesomeIcon icon={faFacebook} /> Sign in using Facebook
         </button>
         <form onSubmit={handleSignIn}>
           <input
@@ -71,7 +78,7 @@ const LoginPage = () => {
             onClick={() =>
               login({
                 authUrlParams: {
-                  connection_id: import.meta.env
+                  connection_id: process.env
                     .VITE_KINDE_CONNECTION_EMAIL_PASSWORD,
                   login_hint: email,
                 },

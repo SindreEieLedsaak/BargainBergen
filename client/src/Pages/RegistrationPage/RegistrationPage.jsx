@@ -45,7 +45,7 @@ const RegistrationPage = () => {
             onClick={() =>
               register({
                 authUrlParams: {
-                  connection_id: import.meta.env
+                  connection_id: process.env
                     .VITE_KINDE_CONNECTION_EMAIL_PASSWORD,
                   login_hint: email,
                 },
@@ -62,14 +62,22 @@ const RegistrationPage = () => {
             onClick={() =>
               register({
                 authUrlParams: {
-                  connection_id: import.meta.env.VITE_KINDE_CONNECTION_GOOGLE,
+                  connection_id: process.env.VITE_KINDE_CONNECTION_GOOGLE,
                 },
               })
             }
           >
             Google
           </button>
-          <button className="facebook-btn">Facebook</button>
+          <button
+          className="facebook-btn"
+          onClick={() =>
+            register({
+              authUrlParams: {
+                connection_id: process.env.VITE_KINDE_CONNECTION_FACEBOOK,
+              },
+            })
+          }>Facebook</button>
         </div>
       </div>
     </div>
