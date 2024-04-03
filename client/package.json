@@ -15,6 +15,7 @@
     "@fortawesome/free-brands-svg-icons": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@kinde-oss/kinde-auth-react": "^3.0.28",
     "@nextui-org/react": "^2.2.9",
     "cors": "^2.8.5",
     "framer-motion": "^11.0.6",
