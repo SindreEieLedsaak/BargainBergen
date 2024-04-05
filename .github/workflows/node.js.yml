@@ -2,9 +2,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, cypress-testing ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, cypress-testing ]
 
 jobs:
   test:
@@ -17,25 +17,50 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    # Install and test frontend
+    # Setup Node.js version
+    - uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    
+    # Cache node_modules and Cypress binary
+    - name: Cache dependencies
+      uses: actions/cache@v2
+      with:
+        path: |
+          ~/.npm
+          ~/.cache/Cypress
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+
+    # Install frontend dependencies
     - name: Install frontend dependencies
       run: npm ci
       working-directory: ./client
 
+    # Test frontend with Jest
     - name: Test frontend
       run: npm test
       working-directory: ./client
       env:
         CI: true
 
-    # Install and test backend
+    # Install backend dependencies
     - name: Install backend dependencies
       run: npm ci
       working-directory: ./backend
 
+    # Test backend with Jest
     - name: Test backend
       run: npm test
       working-directory: ./backend
       env:
         CI: true
 
+    # Start the server and run E2E tests
+    - name: Start server and run E2E tests
+      run: npx start-server-and-test 'npm run dev' http://localhost:5173 'npx cypress run'
+      working-directory: ./client
+      env:
+        PORT: 5173
