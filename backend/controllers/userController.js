@@ -9,7 +9,6 @@ const getAllUsers = async (req, res) => {
   }
 };
       
-
 const createUser = async (req, res) => {
   try {
     const user = new User(req.body);
