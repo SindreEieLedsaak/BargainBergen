@@ -27,6 +27,9 @@ jobs:
       working-directory: ./client
       env:
         CI: true
+        VITE_KINDE_CONNECTION_EMAIL_PASSWORD: mock_connection_id
+        VITE_KINDE_CONNECTION_GOOGLE: mock_google_connection_id
+        VITE_KINDE_CONNECTION_FACEBOOK: mock_facebook_connection_id
 
     # Install and test backend
     - name: Install backend dependencies
@@ -38,4 +41,3 @@ jobs:
       working-directory: ./backend
       env:
         CI: true
-
