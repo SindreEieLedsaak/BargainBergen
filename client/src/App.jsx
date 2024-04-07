@@ -4,6 +4,7 @@ import { KindeProvider } from "@kinde-oss/kinde-auth-react";
 import LoginPage from "./Pages/LoginPage/LoginPage.jsx";
 import RegistrationPage from "./Pages/RegistrationPage/RegistrationPage.jsx";
 import MainPage from "./Pages/MainPage";
+import ProfilePage from "./Pages/ProfilePage";
 
 function App() {
   const [serverStatus, setServerStatus] = useState("Checking server...");
@@ -40,6 +41,7 @@ function App() {
           <Route path="/" element={<MainPage serverStatus={serverStatus} />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegistrationPage />} />
+          <Route path="profile" element={<ProfilePage />} />
         </Routes>
       </Router>
     </KindeProvider>

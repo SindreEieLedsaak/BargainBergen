@@ -8,32 +8,42 @@ const userSchema = new mongoose.Schema({
   roles: [
     {
       type: String,
-      enum: ['buyer', 'seller', 'admin'],
+      enum: ['user', 'admin'],
       required: true,
     }
-  ]
+  ],
+  profilePicture: {
+    type: String,
+    required: false,
+  },
+  listings: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Listing',
+    }
+  ],
 });
 
 // Pre-save hook to hash password
-userSchema.pre('save', function(next) {
-    let user = this;
-  
-    // Only hash the password if it has been modified (or is new)
-    if (!user.isModified('password')) return next();
-  
-    // Generate a salt
-    bcrypt.genSalt(SALT_WORK_FACTOR, (err, salt) => {
+userSchema.pre('save', function (next) {
+  let user = this;
+
+  // Only hash the password if it has been modified (or is new)
+  if (!user.isModified('password')) return next();
+
+  // Generate a salt
+  bcrypt.genSalt(SALT_WORK_FACTOR, (err, salt) => {
+    if (err) return next(err);
+
+    // Hash the password using our new salt
+    bcrypt.hash(user.password, salt, (err, hash) => {
       if (err) return next(err);
-  
-      // Hash the password using our new salt
-      bcrypt.hash(user.password, salt, (err, hash) => {
-        if (err) return next(err);
-  
-        // Override the cleartext password with the hashed one
-        user.password = hash;
-        next();
-      });
+
+      // Override the cleartext password with the hashed one
+      user.password = hash;
+      next();
     });
   });
+});
 
 module.exports = mongoose.model('User', userSchema);

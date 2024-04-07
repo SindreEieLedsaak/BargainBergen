@@ -23,8 +23,8 @@ const Navigationbar = () => {
 
   const menuItems = [
     { title: "Features", href: "#" },
-    { title: "Home", href: "MainPage" },
-    { title: "Integrations", href: "#" },
+    { title: "Home", href: "/" },
+    { title: "For you", href: "#" },
   ];
 
   let navigate = useNavigate();
@@ -74,55 +74,59 @@ const Navigationbar = () => {
         ))}
       </NavbarContent>
       <NavbarContent as="div" justify="end">
+
+
         {user ? (
-          <div>
-            <p>Hey, {user.email}</p>
-            <button onClick={logout} type="button">
-              Logout
-            </button>
-          </div>
+          <Dropdown placement="bottom-end">
+            <DropdownTrigger>
+              <Avatar
+                isBordered
+                as="button"
+                className="transition-transform"
+                color="primary"
+                name={user.given_name}
+                size="sm"
+                src=""
+              />
+            </DropdownTrigger>
+            <DropdownMenu aria-label="Profile Actions" variant="flat">
+              <DropdownItem key="profile" className="h-14 gap-2">
+                <p className="font-semibold">Signed in as</p>
+                <p className="font-semibold">{user.given_name}</p>
+              </DropdownItem>
+              <DropdownItem key="settings" onClick={() => navigate('/profile')}>My Profile</DropdownItem> // Adjusted part
+              <DropdownItem key="analytics">Analytics</DropdownItem>
+              <DropdownItem key="system">System</DropdownItem>
+              <DropdownItem key="help_and_feedback">Help & Feedback</DropdownItem>
+              <DropdownItem key="logout" onClick={logout} color="danger">
+                Log Out
+              </DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+
         ) : (
-          <div>
-            <button color="primary" className="px-4" onClick={navigateToLogin}>
-              Login
-            </button>
-            <button
-              color="primary"
-              className="px-4"
-              onClick={navigateToRegister}
-            >
-              Register
-            </button>
-          </div>
-        )}
-        <Dropdown placement="bottom-end">
-          <DropdownTrigger>
-            <Avatar
-              isBordered
-              as="button"
-              className="transition-transform"
-              color="primary"
-              name="Jason Hughes"
-              size="sm"
-              src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
-            />
-          </DropdownTrigger>
-          <DropdownMenu aria-label="Profile Actions" variant="flat">
-            <DropdownItem key="profile" className="h-14 gap-2">
-              <p className="font-semibold">Signed in as</p>
-              <p className="font-semibold">zoey@example.com</p>
-            </DropdownItem>
-            <DropdownItem key="settings">My Settings</DropdownItem>
-            <DropdownItem key="team_settings">Team Settings</DropdownItem>
-            <DropdownItem key="analytics">Analytics</DropdownItem>
-            <DropdownItem key="system">System</DropdownItem>
-            <DropdownItem key="configurations">Configurations</DropdownItem>
-            <DropdownItem key="help_and_feedback">Help & Feedback</DropdownItem>
-            <DropdownItem key="logout" color="danger">
-              Log Out
-            </DropdownItem>
-          </DropdownMenu>
-        </Dropdown>
+          <Dropdown placement="bottom-end">
+            <DropdownTrigger>
+              <Avatar
+                isBordered
+                as="button"
+                className="transition-transform"
+                color="primary"
+                name={"User"}
+                size="sm"
+                src=""
+              />
+            </DropdownTrigger>
+            <DropdownMenu aria-label="Profile Actions" variant="flat">
+              <DropdownItem key="login" onClick={navigateToLogin}>
+                Log In
+              </DropdownItem>
+              <DropdownItem key="register" onClick={navigateToRegister}>
+                Register
+              </DropdownItem>
+            </DropdownMenu>
+          </Dropdown>)}
+
       </NavbarContent>
     </Navbar>
   );
