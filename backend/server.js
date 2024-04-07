@@ -1,9 +1,9 @@
 const express = require("express");
 require("dotenv").config();
 const userRoutes = require("./routes/userRoutes");
+const clothingRoutes = require("./routes/products/clothingRoutes");
 const cors = require("cors");
 const connectDB = require("./db");
-const clothingRoutes = require("./routes/products/clothingRoutes");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 app.use("/users", userRoutes);
-app.use("/clothing", clothingRoutes);
+app.use("/clothings", clothingRoutes);
 
 app.get("/", (req, res) => {
   res.send("API is running.");

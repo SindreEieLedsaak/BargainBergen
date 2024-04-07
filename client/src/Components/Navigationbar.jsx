@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Navbar,
   NavbarBrand,
@@ -13,10 +14,9 @@ import {
   DropdownMenu,
   Avatar,
 } from "@nextui-org/react";
-import React from "react";
 
 const Navigationbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const menuItems = [
     { title: "Features", href: "#" },
