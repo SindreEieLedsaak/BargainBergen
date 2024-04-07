@@ -47,7 +47,7 @@ const profiles = [
 
 const MainPage = ({ serverStatus }) => {
   return (
-    <div className="bg-white-to-green min-h-screen ">
+    <div className="bg-white-to-green h-full w-full">
       <h1 className="text-3xl text-primary text-center">Server Status</h1>
       <p className="text-center">{serverStatus}</p>
       <CardCollection title={"Hot products"} items={items} cols={3} />

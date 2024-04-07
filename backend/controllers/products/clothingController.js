@@ -37,7 +37,21 @@ const createClothingListing = async (req, res) => {
   }
 };
 
+const getClothingById = async (req, res) => {
+  try {
+    console.log(req.params);
+    const clothingItem = await Clothing.findById(req.params.id);
+    if (!clothingItem) {
+      return res.status(404).json({ message: "Clothing item not found" });
+    }
+    res.status(200).json(clothingItem);
+  } catch (error) {
+    res.status(500).json({ message: "Error getting the clothing item", error });
+  }
+};
+
 module.exports = {
   getAllClothing,
   createClothingListing,
+  getClothingById,
 };
