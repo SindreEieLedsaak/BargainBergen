@@ -1,6 +1,4 @@
-import NavigationBar from "../Components/Navigationbar";
 import CardCollection from "../Components/CardCollection";
-import React from "react";
 import Item from "../Classes/Item";
 import Category from "../Classes/Category";
 import Profile from "../Classes/Profile";
@@ -49,9 +47,8 @@ const profiles = [
 
 const MainPage = ({ serverStatus }) => {
   return (
-    <div className="bg-white-to-green min-h-screen">
-      <NavigationBar />
-      <h1 className="text-3xl text-primary text-center mt-10">Server Status</h1>
+    <div className="bg-white-to-green min-h-screen ">
+      <h1 className="text-3xl text-primary text-center">Server Status</h1>
       <p className="text-center">{serverStatus}</p>
       <CardCollection title={"Hot products"} items={items} cols={3} />
       <CardCollection

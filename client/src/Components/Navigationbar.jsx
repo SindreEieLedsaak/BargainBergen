@@ -1,4 +1,18 @@
-import { Navbar,NavbarBrand, NavbarContent, NavbarItem, NavbarMenuToggle, NavbarMenu, NavbarMenuItem, Link, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu, Avatar} from "@nextui-org/react";
+import {
+  Navbar,
+  NavbarBrand,
+  NavbarContent,
+  NavbarItem,
+  NavbarMenuToggle,
+  NavbarMenu,
+  NavbarMenuItem,
+  Link,
+  DropdownItem,
+  DropdownTrigger,
+  Dropdown,
+  DropdownMenu,
+  Avatar,
+} from "@nextui-org/react";
 import React from "react";
 
 const Navigationbar = () => {
@@ -6,47 +20,47 @@ const Navigationbar = () => {
 
   const menuItems = [
     { title: "Features", href: "#" },
-    { title: "Home", href: "MainPage" },
-    { title: "Integrations", href: "#" }
+    { title: "Home", href: "/" },
+    { title: "Integrations", href: "#" },
   ];
 
   return (
-<Navbar onMenuOpenChange={() => setIsMenuOpen(!isMenuOpen)}>
-   <NavbarContent className=" sm:hidden" justify="start">
-  <NavbarMenuToggle
-    aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-  />
-  </NavbarContent>
-  <NavbarBrand>
-    <p className="font-bold text-inherit">BargainBergen</p>
-  </NavbarBrand>
-  
-  <NavbarMenu isVisible={isMenuOpen} className="sm:hidden">
-    {menuItems.map((item, index) => (
-      <NavbarMenuItem key={index}>
-        <Link
-          color="foreground"
-          href={item.href}
-          onClick={() => setIsMenuOpen(false)}
-        >
-          {item.title}
-        </Link>
-      </NavbarMenuItem>
-    ))}
-  </NavbarMenu>
+    <Navbar onMenuOpenChange={() => setIsMenuOpen(!isMenuOpen)}>
+      <NavbarContent className=" sm:hidden" justify="start">
+        <NavbarMenuToggle
+          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+        />
+      </NavbarContent>
+      <NavbarBrand>
+        <p className="font-bold text-inherit">BargainBergen</p>
+      </NavbarBrand>
 
-  {/* Regular menu for larger screens */}
-  <NavbarContent className="hidden sm:flex gap-4" justify="center">
-    {menuItems.map((item, index) => (
-      <NavbarItem key={index}>
-        <Link color="foreground" href={item.href}>
-          {item.title}
-        </Link>
-      </NavbarItem>
-    ))}
-  </NavbarContent>
+      <NavbarMenu isVisible={isMenuOpen} className="sm:hidden">
+        {menuItems.map((item, index) => (
+          <NavbarMenuItem key={index}>
+            <Link
+              color="foreground"
+              href={item.href}
+              onClick={() => setIsMenuOpen(false)}
+            >
+              {item.title}
+            </Link>
+          </NavbarMenuItem>
+        ))}
+      </NavbarMenu>
+
+      {/* Regular menu for larger screens */}
+      <NavbarContent className="hidden sm:flex gap-4" justify="center">
+        {menuItems.map((item, index) => (
+          <NavbarItem key={index}>
+            <Link color="foreground" href={item.href}>
+              {item.title}
+            </Link>
+          </NavbarItem>
+        ))}
+      </NavbarContent>
       <NavbarContent as="div" justify="end">
-      <Dropdown placement="bottom-end">
+        <Dropdown placement="bottom-end">
           <DropdownTrigger>
             <Avatar
               isBordered
@@ -54,7 +68,7 @@ const Navigationbar = () => {
               className="transition-transform"
               color="primary"
               name="Jason Hughes"
-              size="sm"  
+              size="sm"
               src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
             />
           </DropdownTrigger>
@@ -77,6 +91,6 @@ const Navigationbar = () => {
       </NavbarContent>
     </Navbar>
   );
-}
+};
 
 export default Navigationbar;
