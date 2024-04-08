@@ -33,7 +33,7 @@ export const ProductDetail = () => {
       </div>
       {/* Additional details can be displayed in a structured way below */}
       <div className="mt-6 space-y-3 text-gray-700">
-        <p className="text-sm md:text-base">Category: {category}</p>
+        <p className="text-sm md:text-base">{product.description}</p>
         {/* Include more details as needed, formatted nicely */}
       </div>
     </div>
