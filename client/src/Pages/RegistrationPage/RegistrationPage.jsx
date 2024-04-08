@@ -11,7 +11,6 @@ const RegistrationPage = () => {
   const handleSignUp = (event) => {
     event.preventDefault();
   };
-
   return (
     <div className="registration-container">
       <div className="registration-form">
