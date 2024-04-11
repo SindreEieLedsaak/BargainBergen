@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 export const ProductCard = ({ category, product }) => {
-  const { _id, header, price, img } = product;
+  const { _id, header, price, img, category: productCategory } = product;
 
   return (
     <Link
@@ -23,7 +23,7 @@ export const ProductCard = ({ category, product }) => {
         <div className="font-bold text-xl mb-2">{header}</div>
         <p className="text-gray-700 text-base">${price}</p>
         <p className="text-gray-700 text-base">{_id}</p>
-        <p className="text-gray-700 text-base">{category}</p>
+        <p className="text-gray-700 text-base">{productCategory}</p>
       </div>
     </Link>
   );

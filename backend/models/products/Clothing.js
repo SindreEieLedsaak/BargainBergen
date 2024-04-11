@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 
 const clothingSchema = new mongoose.Schema({
-  // Defining the schema for the clothing collection
   header: { type: String, required: true },
   price: { type: Number, required: true },
   size: { type: String, required: false },
@@ -12,6 +11,7 @@ const clothingSchema = new mongoose.Schema({
   // TODO: USE THIS WHEN NOT TESTING: sellerID: {  type: mongoose.Schema.Types.ObjectId,  ref: "User",  required: true, },
   sellerID: { type: String, required: true },
   category: { type: String, required: false },
+  img: { type: String, required: false },
 });
 
 const Clothing = mongoose.model("Clothing", clothingSchema);
