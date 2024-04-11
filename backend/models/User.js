@@ -8,8 +8,18 @@ const userSchema = new mongoose.Schema({
   roles: [
     {
       type: String,
-      enum: ["buyer", "seller", "admin"],
+      enum: ["user", "admin"],
       required: true,
+    },
+  ],
+  profilePicture: {
+    type: String,
+    required: false,
+  },
+  listings: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Listing",
     },
   ],
 });

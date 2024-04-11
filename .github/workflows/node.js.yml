@@ -17,22 +17,44 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    # Install and test frontend
+    # Setup Node.js version
+    - uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    
+    # Cache node_modules and Cypress binary
+    - name: Cache dependencies
+      uses: actions/cache@v2
+      with:
+        path: |
+          ~/.npm
+          ~/.cache/Cypress
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+
+    # Install frontend dependencies
     - name: Install frontend dependencies
       run: npm ci
       working-directory: ./client
 
+    # Test frontend with Jest
     - name: Test frontend
       run: npm test
       working-directory: ./client
       env:
         CI: true
+        VITE_KINDE_CONNECTION_EMAIL_PASSWORD: mock_connection_id
+        VITE_KINDE_CONNECTION_GOOGLE: mock_google_connection_id
+        VITE_KINDE_CONNECTION_FACEBOOK: mock_facebook_connection_id
 
-    # Install and test backend
+    # Install backend dependencies
     - name: Install backend dependencies
       run: npm ci
       working-directory: ./backend
 
+    # Test backend with Jest
     - name: Test backend
       run: npm test
       working-directory: ./backend

@@ -5,6 +5,9 @@ import RegistrationPage from "./Pages/RegistrationPage/RegistrationPage.jsx";
 import { Clothing } from "./Pages/Products/Clothing.jsx";
 import MainPage from "./Pages/MainPage";
 import { ProductDetail } from "./Pages/Products/Components/ProductDetail.jsx";
+import { KindeProvider } from "@kinde-oss/kinde-auth-react";
+import ProfilePage from "./Pages/ProfilePage";
+import { NavigationBar } from "./Components/NavigationBar";
 
 function App() {
   const [serverStatus, setServerStatus] = useState("Checking server...");
@@ -31,18 +34,31 @@ function App() {
 
   return (
     <div className="3xl:flex 3xl:justify-center max-w-screen-3xl 3xl:mx-auto">
-      <Router>
-        <Routes>
-          <Route path="/" element={<MainPage serverStatus={serverStatus} />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegistrationPage />} />
-          <Route path="/products/clothing" element={<Clothing />} />
-          <Route
-            path="/products/:category/:productId"
-            element={<ProductDetail />}
-          />
-        </Routes>
-      </Router>
+      <KindeProvider
+        clientId="70f77d0ff99d4eeeafb649dc8c28c00f"
+        domain="https://bargianbergen.kinde.com"
+        redirectUri="http://localhost:5173"
+        logoutUri="http://localhost:5173"
+      >
+        <Router>
+          <NavigationBar />
+          <Routes>
+            <Route
+              path="/"
+              element={<MainPage serverStatus={serverStatus} />}
+            />
+
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegistrationPage />} />
+            <Route path="/products/clothing" element={<Clothing />} />
+            <Route
+              path="/products/:category/:productId"
+              element={<ProductDetail />}
+            />
+            <Route path="profile" element={<ProfilePage />} />
+          </Routes>
+        </Router>
+      </KindeProvider>
     </div>
   );
 }

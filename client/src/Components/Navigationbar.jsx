@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   Navbar,
   NavbarBrand,
@@ -14,15 +13,30 @@ import {
   DropdownMenu,
   Avatar,
 } from "@nextui-org/react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useKindeAuth } from "@kinde-oss/kinde-auth-react";
 
-const Navigationbar = () => {
+export function NavigationBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, logout } = useKindeAuth();
 
   const menuItems = [
     { title: "Features", href: "#" },
     { title: "Home", href: "/" },
-    { title: "Integrations", href: "#" },
+    { title: "For you", href: "#" },
   ];
+
+  let navigate = useNavigate();
+  const navigateToLogin = () => {
+    let path = `/login`;
+    navigate(path);
+  };
+
+  const navigateToRegister = () => {
+    let path = `/register`;
+    navigate(path);
+  };
 
   return (
     <Navbar onMenuOpenChange={() => setIsMenuOpen(!isMenuOpen)}>
@@ -60,37 +74,61 @@ const Navigationbar = () => {
         ))}
       </NavbarContent>
       <NavbarContent as="div" justify="end">
-        <Dropdown placement="bottom-end">
-          <DropdownTrigger>
-            <Avatar
-              isBordered
-              as="button"
-              className="transition-transform"
-              color="primary"
-              name="Jason Hughes"
-              size="sm"
-              src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
-            />
-          </DropdownTrigger>
-          <DropdownMenu aria-label="Profile Actions" variant="flat">
-            <DropdownItem key="profile" className="h-14 gap-2">
-              <p className="font-semibold">Signed in as</p>
-              <p className="font-semibold">zoey@example.com</p>
-            </DropdownItem>
-            <DropdownItem key="settings">My Settings</DropdownItem>
-            <DropdownItem key="team_settings">Team Settings</DropdownItem>
-            <DropdownItem key="analytics">Analytics</DropdownItem>
-            <DropdownItem key="system">System</DropdownItem>
-            <DropdownItem key="configurations">Configurations</DropdownItem>
-            <DropdownItem key="help_and_feedback">Help & Feedback</DropdownItem>
-            <DropdownItem key="logout" color="danger">
-              Log Out
-            </DropdownItem>
-          </DropdownMenu>
-        </Dropdown>
+        {user ? (
+          <Dropdown placement="bottom-end">
+            <DropdownTrigger>
+              <Avatar
+                isBordered
+                as="button"
+                className="transition-transform"
+                color="primary"
+                name={user.given_name}
+                size="sm"
+                src=""
+              />
+            </DropdownTrigger>
+            <DropdownMenu aria-label="Profile Actions" variant="flat">
+              <DropdownItem key="profile" className="h-14 gap-2">
+                <p className="font-semibold">Signed in as</p>
+                <p className="font-semibold">{user.given_name}</p>
+              </DropdownItem>
+              <DropdownItem key="settings" onClick={() => navigate("/profile")}>
+                My Profile
+              </DropdownItem>
+              <DropdownItem key="analytics">Analytics</DropdownItem>
+              <DropdownItem key="system">System</DropdownItem>
+              <DropdownItem key="help_and_feedback">
+                Help & Feedback
+              </DropdownItem>
+              <DropdownItem key="logout" onClick={logout} color="danger">
+                Log Out
+              </DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+        ) : (
+          <Dropdown placement="bottom-end">
+            <DropdownTrigger>
+              <Avatar
+                isBordered
+                as="button"
+                className="transition-transform"
+                color="primary"
+                name={"User"}
+                size="sm"
+                src=""
+              />
+            </DropdownTrigger>
+            <DropdownMenu aria-label="Profile Actions" variant="flat">
+              <DropdownItem key="login" onClick={navigateToLogin}>
+                Log In
+              </DropdownItem>
+              <DropdownItem key="register" onClick={navigateToRegister}>
+                Register
+              </DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+        )}
       </NavbarContent>
     </Navbar>
   );
-};
-
-export default Navigationbar;
+}
