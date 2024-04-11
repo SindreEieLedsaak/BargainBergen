@@ -15,7 +15,6 @@ const getAllProductsOfCategory = async (category, filter) => {
 };
 
 const getProductById = async (category, productId) => {
-  console.log("Get", category, productId);
   const url = `${baseUrl}/${category}/${encodeURIComponent(productId)}`;
   const response = await fetch(url);
 

@@ -18,8 +18,6 @@ export const Clothing = () => {
   const handleFilterChange = (filter) => {
     setSelectedFilter(filter);
   };
-  console.log(selectedFilter);
-  console.log(clothing);
 
   const clothingMenu = [
     { name: "All", filter: "" }, // Added to allow users to select all items
