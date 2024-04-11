@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import clothingServices from "../../../services/productService";
+import productService from "../../../services/productService";
 
 export const ProductDetail = () => {
   const { category, productId } = useParams();
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
-    clothingServices.getProductById(category, productId).then((data) => {
+    productService.getProductById(category, productId).then((data) => {
       setProduct(data);
     });
   }, [category, productId]);

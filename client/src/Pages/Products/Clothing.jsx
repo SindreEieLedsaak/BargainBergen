@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import clothingServices from "../../services/productService";
+import productService from "../../services/productService";
 import { Layout } from "../../Components/Layout";
 import { ProductCard } from "./Components/ProductCard";
 
@@ -8,7 +8,7 @@ export const Clothing = () => {
   const [selectedFilter, setSelectedFilter] = useState("");
 
   useEffect(() => {
-    clothingServices
+    productService
       .getAllProductsOfCategory("clothings", selectedFilter)
       .then((initialClothing) => {
         setClothing(initialClothing);
