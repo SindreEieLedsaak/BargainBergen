@@ -4,11 +4,16 @@ export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
-    "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}"
+    "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
       backgroundImage: {
+        "white-to-green":
+          "linear-gradient(to top right, #FFFFFF, #FFFFFF 60%, #BBFFBB)",
+      },
+      screens: {
+        "3xl": "1880px",
         'white-to-green': "linear-gradient(to top right, #FFFFFF, #FFFFFF 60%, #D1F4E0)",
       }
     }
@@ -51,5 +56,5 @@ export default {
 
     },
     addCommonColors: true,
-  })]
-}
+  },)],
+};

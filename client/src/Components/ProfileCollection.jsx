@@ -1,7 +1,7 @@
-import React from "react";
 import ProfileComponent from "./ProfileComponent";
+import React from "react";
 
-const ProfileCollection = ({profiles, header}) => {
+const ProfileCollection = ({ profiles, header }) => {
   return (
     <div>
       <h1 className="text-3xl text-primary-900 px-3 mt-10">{header}</h1>
@@ -12,5 +12,5 @@ const ProfileCollection = ({profiles, header}) => {
       </div>
     </div>
   );
-}
+};
 export default ProfileCollection;

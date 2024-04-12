@@ -1,3 +1,5 @@
+import React from "react";
+
 import {
   Navbar,
   NavbarBrand,
@@ -13,12 +15,12 @@ import {
   DropdownMenu,
   Avatar,
 } from "@nextui-org/react";
-import React from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useKindeAuth } from "@kinde-oss/kinde-auth-react";
 
-const Navigationbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+export function NavigationBar() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user, logout } = useKindeAuth();
 
   const menuItems = [
@@ -74,8 +76,6 @@ const Navigationbar = () => {
         ))}
       </NavbarContent>
       <NavbarContent as="div" justify="end">
-
-
         {user ? (
           <Dropdown placement="bottom-end">
             <DropdownTrigger>
@@ -94,16 +94,19 @@ const Navigationbar = () => {
                 <p className="font-semibold">Signed in as</p>
                 <p className="font-semibold">{user.given_name}</p>
               </DropdownItem>
-              <DropdownItem key="settings" onClick={() => navigate('/profile')}>My Profile</DropdownItem> // Adjusted part
+              <DropdownItem key="settings" onClick={() => navigate("/profile")}>
+                My Profile
+              </DropdownItem>
               <DropdownItem key="analytics">Analytics</DropdownItem>
               <DropdownItem key="system">System</DropdownItem>
-              <DropdownItem key="help_and_feedback">Help & Feedback</DropdownItem>
+              <DropdownItem key="help_and_feedback">
+                Help & Feedback
+              </DropdownItem>
               <DropdownItem key="logout" onClick={logout} color="danger">
                 Log Out
               </DropdownItem>
             </DropdownMenu>
           </Dropdown>
-
         ) : (
           <Dropdown placement="bottom-end">
             <DropdownTrigger>
@@ -125,11 +128,9 @@ const Navigationbar = () => {
                 Register
               </DropdownItem>
             </DropdownMenu>
-          </Dropdown>)}
-
+          </Dropdown>
+        )}
       </NavbarContent>
     </Navbar>
   );
-};
-
-export default Navigationbar;
+}
