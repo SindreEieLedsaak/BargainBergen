@@ -1,4 +1,5 @@
 import ProfileComponent from "./ProfileComponent";
+import React from "react";
 
 const ProfileCollection = ({ profiles, header }) => {
   return (

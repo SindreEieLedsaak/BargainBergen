@@ -3,6 +3,7 @@ import Item from "../Classes/Item";
 import Category from "../Classes/Category";
 import Profile from "../Classes/Profile";
 import ProfileCollection from "../Components/ProfileCollection";
+import React from "react";
 
 const items = [
   new Item("Sweater", "", "20", "clothing"),

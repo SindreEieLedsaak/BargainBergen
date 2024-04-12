@@ -1,4 +1,4 @@
-const baseUrl = import.meta.env.VITE_API_URL || "http://localhost:3001";
+const baseUrl = process.env.VITE_API_URL || "http://localhost:3001";
 
 const getAllProductsOfCategory = async (category, filter) => {
   // If a filter is provided, append a query string with the filter. Otherwise, just call the category endpoint.

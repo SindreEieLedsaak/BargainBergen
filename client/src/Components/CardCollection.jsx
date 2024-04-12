@@ -1,5 +1,6 @@
 import CardComponent from "./CardComponent";
 import { Link } from "react-router-dom";
+import React from "react";
 
 const CardCollection = ({ title, items, cols }) => {
   // Function to map cols prop to Tailwind's grid-cols classes

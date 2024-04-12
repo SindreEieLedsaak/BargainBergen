@@ -1,4 +1,5 @@
 import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
+import React from "react";
 
 const CardComponent = ({ item, uniqueKey }) => {
   return (

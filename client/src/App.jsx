@@ -7,7 +7,8 @@ import MainPage from "./Pages/MainPage";
 import { ProductDetail } from "./Pages/Products/Components/ProductDetail.jsx";
 import { KindeProvider } from "@kinde-oss/kinde-auth-react";
 import ProfilePage from "./Pages/ProfilePage";
-import { NavigationBar } from "./Components/NavigationBar";
+import { NavigationBar } from "./Components/Navigationbar";
+import React from "react";
 
 function App() {
   const [serverStatus, setServerStatus] = useState("Checking server...");
