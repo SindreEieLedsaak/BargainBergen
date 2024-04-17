@@ -33,8 +33,30 @@ const deleteUser = async (req, res) => {
   }
 };
 
+const checkAndCreateUser = async (req, res) => {
+  const { id, email } = req.body;
+
+  try {
+    let user = await User.findOne({ $or: [{ _id: id }, { email: email }] });
+
+    if (!user) {
+      user = new User(req.body);
+      await user.save();
+      return res.status(201).send(user);
+    }
+    res.status(200).send(user);
+  } catch (error) {
+    if (error.name === 'ValidationError') {
+      res.status(400).send(error);
+    } else {
+      res.status(500).send(error);
+    }
+  }
+};
+
 module.exports = {
   getAllUsers,
   createUser,
   deleteUser,
+  checkAndCreateUser,
 };
