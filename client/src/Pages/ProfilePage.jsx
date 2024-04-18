@@ -1,57 +1,64 @@
+import React, { useState } from "react";
 import Navigationbar from "../Components/Navigationbar";
-import CardCollection from "../Components/CardCollection";
-import React from "react";
-import { ScrollShadow } from "@nextui-org/react";
-
+import Detailsform from "./Forms/Detailsform";
+import Passwordform from "./Forms/Passwordform";
+import { useKindeAuth } from "@kinde-oss/kinde-auth-react";
 
 const ProfilePage = () => {
-    return (
-        <div className="bg-white-to-green min-h-screen">
-            <Navigationbar />
-            <div className="container mx-auto">
-                <h1 className="text-3xl px-3 mt-10">Your listings </h1>
-                <ScrollShadow orientation="horizontal" className="max-h-[230px]">
-                    <CardCollection
-                        items={[
-                            { title: "Profile Item 1", description: "This is the first item in the profile page." },
-                            { title: "Profile Item 2", description: "This is the second item in the profile page." },
-                            { title: "Profile Item 3", description: "This is the third item in the profile page." },
-                            { title: "Profile Item 4", description: "This is the fourth item in the profile page." },
-                            { title: "Profile Item 1", description: "This is the first item in the profile page." },
-                            { title: "Profile Item 2", description: "This is the second item in the profile page." },
-                            { title: "Profile Item 3", description: "This is the third item in the profile page." },
-                            { title: "Profile Item 4", description: "This is the fourth item in the profile page." },
-                        ]}
-                        cols={4}
-                    />
-                </ScrollShadow>
+  const user = useKindeAuth();
+  const [activeTab, setActiveTab] = useState("details");
 
-            </div>
-            <div className="container mx-auto pt-20">
-                <h1 className="text-3xl px-3 mt-10">Your favorites </h1>
-                <ScrollShadow orientation="horizontal" className="max-h-[230px]">
-                    <CardCollection
-                        items={[
-                            { title: "Profile Item 1", description: "This is the first item in the profile page." },
-                            { title: "Profile Item 2", description: "This is the second item in the profile page." },
-                            { title: "Profile Item 3", description: "This is the third item in the profile page." },
-                            { title: "Profile Item 4", description: "This is the fourth item in the profile page." },
-                            { title: "Profile Item 1", description: "This is the first item in the profile page." },
-                            { title: "Profile Item 2", description: "This is the second item in the profile page." },
-                            { title: "Profile Item 3", description: "This is the third item in the profile page." },
-                            { title: "Profile Item 4", description: "This is the fourth item in the profile page." },
-                        ]}
-                        cols={4}
-                    />
-                </ScrollShadow>
+  const handleTabClick = (tabName) => {
+    setActiveTab(tabName);
+  };
 
-            </div>
-
-
-
+  return (
+    <div className="bg-white-to-green min-h-screen">
+      <Navigationbar />
+      <div className="container mx-auto">
+        <div className="text-center mb-4">
+          <h1 className="text-3xl font-semibold text-gray-800">Your Account</h1>
+          <hr className="my-4 border-t-2 border-gray-200" />
         </div>
-
-    );
-}
+        <div className="bg-white shadow rounded-lg">
+          <div className="flex justify-center border-b">
+            <div className="w-full">
+              <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500">
+                <li className="mr-2">
+                  <a
+                    onClick={() => handleTabClick("details")}
+                    className={`inline-block p-4  rounded-t-lg border-b-2 ${
+                      activeTab === "details"
+                        ? "border-blue-600"
+                        : "border-transparent hover:border-gray-300"
+                    }`}
+                  >
+                    My Details
+                  </a>
+                </li>
+                <li className="mr-2">
+                  <a
+                    onClick={() => handleTabClick("password")}
+                    className={`inline-block p-4 rounded-t-lg border-b-2 ${
+                      activeTab === "password"
+                        ? "border-blue-600"
+                        : "border-transparent hover:border-gray-300"
+                    }`}
+                  >
+                    Password
+                  </a>
+                </li>
+                {/* More tabs */}
+              </ul>
+            </div>
+          </div>
+          {/* Tab Content */}
+          {activeTab === "details" && <Detailsform user={user.getUser()} />}
+          {activeTab === "password" && <Passwordform />}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default ProfilePage;

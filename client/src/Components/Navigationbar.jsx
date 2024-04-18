@@ -74,8 +74,6 @@ const Navigationbar = () => {
         ))}
       </NavbarContent>
       <NavbarContent as="div" justify="end">
-
-
         {user ? (
           <Dropdown placement="bottom-end">
             <DropdownTrigger>
@@ -86,7 +84,7 @@ const Navigationbar = () => {
                 color="primary"
                 name={user.given_name}
                 size="sm"
-                src=""
+                src={user.picture}
               />
             </DropdownTrigger>
             <DropdownMenu aria-label="Profile Actions" variant="flat">
@@ -94,16 +92,24 @@ const Navigationbar = () => {
                 <p className="font-semibold">Signed in as</p>
                 <p className="font-semibold">{user.given_name}</p>
               </DropdownItem>
-              <DropdownItem key="settings" onClick={() => navigate('/profile')}>My Profile</DropdownItem> // Adjusted part
-              <DropdownItem key="analytics">Analytics</DropdownItem>
+              <DropdownItem key="settings" onClick={() => navigate("/profile")}>
+                My Profile
+              </DropdownItem>{" "}
+              <DropdownItem
+                key="listings"
+                onClick={() => navigate("/listings")}
+              >
+                My Listings
+              </DropdownItem>
               <DropdownItem key="system">System</DropdownItem>
-              <DropdownItem key="help_and_feedback">Help & Feedback</DropdownItem>
+              <DropdownItem key="help_and_feedback">
+                Help & Feedback
+              </DropdownItem>
               <DropdownItem key="logout" onClick={logout} color="danger">
                 Log Out
               </DropdownItem>
             </DropdownMenu>
           </Dropdown>
-
         ) : (
           <Dropdown placement="bottom-end">
             <DropdownTrigger>
@@ -125,8 +131,8 @@ const Navigationbar = () => {
                 Register
               </DropdownItem>
             </DropdownMenu>
-          </Dropdown>)}
-
+          </Dropdown>
+        )}
       </NavbarContent>
     </Navbar>
   );
