@@ -3,7 +3,7 @@ import { ScrollShadow } from "@nextui-org/react";
 
 const ProfilePage = () => {
   return (
-    <div className="bg-white-to-green min-h-screen">
+    <div>
       <div className="container mx-auto">
         <h1 className="text-3xl px-3 mt-10">Your listings </h1>
         <ScrollShadow orientation="horizontal" className="max-h-[230px]">

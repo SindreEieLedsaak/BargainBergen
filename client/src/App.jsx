@@ -34,7 +34,7 @@ function App() {
   }, []); // Empty dependency array means this effect will only run once, after the initial render
 
   return (
-    <div className="3xl:flex 3xl:justify-center max-w-screen-3xl 3xl:mx-auto">
+    <div className="3xl:flex 3xl:justify-center max-w-screen-3xl 3xl:mx-auto bg-white-to-green ">
       <KindeProvider
         clientId="70f77d0ff99d4eeeafb649dc8c28c00f"
         domain="https://bargianbergen.kinde.com"
