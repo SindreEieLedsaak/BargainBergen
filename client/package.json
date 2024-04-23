@@ -16,13 +16,16 @@
     "@fortawesome/free-brands-svg-icons": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@hookform/resolvers": "^3.3.4",
     "@kinde-oss/kinde-auth-react": "^3.0.28",
     "@nextui-org/react": "^2.2.9",
     "cors": "^2.8.5",
     "framer-motion": "^11.0.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.22.2"
+    "react-hook-form": "^7.51.3",
+    "react-router-dom": "^6.22.2",
+    "zod": "^3.22.5"
   },
   "devDependencies": {
     "@babel/core": "^7.24.0",
