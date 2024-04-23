@@ -14,10 +14,22 @@ const getAllClothing = async (req, res) => {
 };
 
 const createClothingListing = async (req, res) => {
+  console.log("Received data:", req.body);
+
   try {
-    const { header, price, size, color, description, sellerName, category } =
-      req.body;
-    const sellerID = req.body.sellerID; //req.user._id; // TODO: set req.user in an authentication middleware
+    const {
+      header,
+      price,
+      size,
+      color,
+      description,
+      sellerName,
+      sellerID,
+      category,
+      image,
+      address,
+    } = req.body;
+    // const sellerID = req.body.sellerID; //req.user._id; // TODO: set req.user in an authentication middleware
 
     const newClothing = new Clothing({
       header,
@@ -28,6 +40,8 @@ const createClothingListing = async (req, res) => {
       description,
       sellerName,
       sellerID,
+      img: image,
+      address,
     });
 
     await newClothing.save();

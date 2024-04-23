@@ -25,4 +25,26 @@ const getProductById = async (category, productId) => {
   return response.json();
 };
 
-export default { getAllProductsOfCategory, getProductById };
+const createListing = async (data) => {
+  const categoryWithS = data.category.endsWith("s")
+    ? data.category
+    : `${data.category}s`; // To match the endpoints in the backend (mongo db collections)
+  const url = `${baseUrl}/${categoryWithS}`;
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    const errorResponse = await response.json();
+
+    throw new Error(errorResponse.message || "Failed to create listing");
+  }
+
+  return response.json();
+};
+
+export default { getAllProductsOfCategory, getProductById, createListing };
