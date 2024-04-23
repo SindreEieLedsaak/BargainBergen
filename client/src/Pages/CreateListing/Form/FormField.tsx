@@ -14,6 +14,8 @@ export function FormField({ label, id, type, register, errors, options }) {
             </option>
           ))}
         </select>
+      ) : type === "file" ? (
+        <input type="file" accept="image/jpeg" {...register("image")} />
       ) : (
         <input
           className="py-1 px-2 border rounded-lg "

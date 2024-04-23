@@ -26,7 +26,7 @@ export const ProductDetail = () => {
       <p className="text-xl text-gray-800 mb-2">${product.price}</p>
       <div className="max-w-xs md:max-w-md lg:max-w-lg xl:max-w-xl">
         <img
-          src={`data:image/jpeg;base64,${product.img}`}
+          src={product.img}
           alt="Product"
           className="object-cover rounded-lg shadow-lg"
         />

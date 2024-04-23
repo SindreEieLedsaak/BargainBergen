@@ -8,5 +8,7 @@ export const listingSchema = z.object({
   color: z.string(),
   description: z.string().min(1, { message: "Description is required" }),
   address: z.string().min(1, { message: "Address is required" }),
-  image: z.string().min(1, { message: "Picture must be a Base64 string" }),
+  image: z.any(),
 });
+
+// image: z.string().min(1, { message: "Picture must be a Base64 string" }),

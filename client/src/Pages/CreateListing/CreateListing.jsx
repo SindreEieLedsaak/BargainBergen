@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { listingSchema } from "./Form/listingSchema";
@@ -15,17 +15,39 @@ export function CreateListing() {
   } = useForm({
     resolver: zodResolver(listingSchema),
   });
+
   const { user } = useKindeAuth();
   console.log(user);
   const userId = user?.id;
   const userName = user?.given_name;
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
+    console.log("Data submitted:", data);
     if (!userId || !userName) {
       setSubmitError("You have to be logged in");
       return;
     }
-    const fullData = { ...data, sellerID: userId, sellerName: userName };
+
+    // Start by destructuring the image from the data and gather the rest separately
+    const { image, ...rest } = data;
+
+    // Initialize fullData with the data that doesn't need conversion
+    let fullData = { ...rest, sellerID: userId, sellerName: userName };
+
+    if (image && image.length > 0) {
+      const file = image[0]; // Assuming it's the first file
+      try {
+        // Convert the file to a base64 string
+        const base64 = await toBase64(file);
+        // Now, add the base64 string to fullData
+        fullData.image = base64;
+      } catch (error) {
+        console.error("Error converting file to base64", error);
+        setSubmitError("Error processing the image");
+        return; // Stop the submission if there's an error with the image
+      }
+    }
+
     console.log("Full data:", fullData);
 
     productService
@@ -39,6 +61,15 @@ export function CreateListing() {
         console.error("Error creating listing:", error);
       });
   };
+
+  // Helper function to convert file to base64
+  const toBase64 = (file) =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
 
   return (
     <div className="flex justify-center bg-white-to-green min-h-screen">
@@ -99,7 +130,7 @@ export function CreateListing() {
         <FormField
           label="Image"
           id="image"
-          type="text"
+          type="file"
           register={register}
           errors={errors}
         />
