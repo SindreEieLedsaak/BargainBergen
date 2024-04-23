@@ -9,7 +9,6 @@ export const ProductDetail = () => {
   const [product, setProduct] = useState(null);
   const { token } = useKindeAuth();  // Accessing token directly in the component
 
-
   useEffect(() => {
     productService.getProductById(category, productId).then((data) => {
       setProduct(data);
