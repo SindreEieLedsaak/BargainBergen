@@ -91,7 +91,7 @@ export function NavigationBar() {
             </DropdownTrigger>
             <DropdownMenu aria-label="Profile Actions" variant="flat">
               <DropdownItem key="profile" className="h-14 gap-2">
-                <p className="font-semibold">Signed in as</p>
+                <p className="font-semibold">Signed in as {user.email}</p>
                 <p className="font-semibold">{user.given_name}</p>
               </DropdownItem>
               <DropdownItem key="settings" onClick={() => navigate("/profile")}>

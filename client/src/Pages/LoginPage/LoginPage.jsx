@@ -18,7 +18,12 @@ const LoginPage = () => {
 
   const handleSignIn = (event) => {
     event.preventDefault();
-    // sign-in logic here
+    login({
+      authUrlParams: {
+        connection_id: process.env.VITE_KINDE_CONNECTION_EMAIL_PASSWORD,
+        login_hint: email,
+      },
+    });
   };
 
   return (
@@ -73,18 +78,7 @@ const LoginPage = () => {
             placeholder="Email address"
             required
           />
-          <button
-            type="submit"
-            onClick={() =>
-              login({
-                authUrlParams: {
-                  connection_id: process.env
-                    .VITE_KINDE_CONNECTION_EMAIL_PASSWORD,
-                  login_hint: email,
-                },
-              })
-            }
-          >
+          <button type="submit">
             Sign in with email
           </button>
         </form>
