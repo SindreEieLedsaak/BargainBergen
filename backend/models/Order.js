@@ -12,7 +12,7 @@ const orderItemSchema = new mongoose.Schema({
 });
 
 const orderSchema = new mongoose.Schema({
-  user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  user: { type: String, required: true },
   orderItems: [orderItemSchema],
   status: { type: String, default: "pending" }, // You can add more statuses like shipped, delivered, etc.
   createdAt: { type: Date, default: Date.now },

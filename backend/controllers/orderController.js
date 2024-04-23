@@ -1,9 +1,9 @@
-const Order = require("../models/orderModel");
+const Order = require("../models/Order");
+
 
 // Add item to the cart
 const addItemToCart = async (req, res) => {
-  const { productId, quantity, size, color } = req.body;
-  const userId = req.user._id; // Assume user ID is set in the request by authentication middleware
+  const { productId, quantity, size, color, userId } = req.body;  // Including userId from request body
 
   console.log(`Attempting to add item to cart for user ${userId}`);
 
@@ -11,24 +11,17 @@ const addItemToCart = async (req, res) => {
     let order = await Order.findOne({ user: userId, status: "pending" });
     if (!order) {
       console.log("No pending order found, creating a new one");
-      // Create a new order if no pending order exists
       order = new Order({
         user: userId,
         orderItems: [{ product: productId, quantity, size, color }],
       });
     } else {
-      console.log("Adding new item to existing order");
-      // Add new item to existing order
       const itemIndex = order.orderItems.findIndex(
-        (item) => item.product.toString() === productId,
+        (item) => item.product.toString() === productId
       );
       if (itemIndex > -1) {
-        console.log("Item already in cart, updating quantity");
-        // Update item in cart if already exists
         order.orderItems[itemIndex].quantity += quantity;
       } else {
-        console.log("Adding new item to the order");
-        // Add new item to the order
         order.orderItems.push({ product: productId, quantity, size, color });
       }
     }
