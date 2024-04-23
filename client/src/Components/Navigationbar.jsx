@@ -18,10 +18,20 @@ import {
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useKindeAuth } from "@kinde-oss/kinde-auth-react";
+import CartIcon from './CartIcon'; // Make sure the path to CartIcon is correct
+
+
+
+
 
 export function NavigationBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user, logout } = useKindeAuth();
+
+  const handleCartClick = () => {
+    console.log("Cart icon clicked");
+    // Here you can later add navigation to the cart page or open a modal, etc.
+};
 
   const menuItems = [
     { title: "Features", href: "#" },
@@ -130,7 +140,11 @@ export function NavigationBar() {
             </DropdownMenu>
           </Dropdown>
         )}
+        <NavbarItem>
+              <CartIcon onClick={handleCartClick} />
+          </NavbarItem>
       </NavbarContent>
+
     </Navbar>
   );
 }

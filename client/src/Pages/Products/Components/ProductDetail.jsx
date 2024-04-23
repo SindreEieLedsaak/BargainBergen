@@ -3,10 +3,12 @@ import { useParams } from "react-router-dom";
 import productService from "../../../services/productService";
 import { useKindeAuth } from "@kinde-oss/kinde-auth-react";
 
+
 export const ProductDetail = () => {
   const { category, productId } = useParams();
   const [product, setProduct] = useState(null);
   const { user } = useKindeAuth();  // Properly accessing the getToken method
+
 
   useEffect(() => {
     productService.getProductById(category, productId).then((data) => {
