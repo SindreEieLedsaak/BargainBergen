@@ -6,7 +6,7 @@ import { useKindeAuth } from "@kinde-oss/kinde-auth-react";
 export const ProductDetail = () => {
   const { category, productId } = useParams();
   const [product, setProduct] = useState(null);
-  const { token } = useKindeAuth();  // Accessing token directly in the component
+  const { token } = useKindeAuth(); // Accessing token directly in the component
 
   useEffect(() => {
     productService.getProductById(category, productId).then((data) => {
