@@ -1,4 +1,4 @@
-import { useKindeAuth } from '@kinde-oss/kinde-auth-react';
+import { useKindeAuth } from "@kinde-oss/kinde-auth-react";
 
 const baseUrl = process.env.VITE_API_URL || "http://localhost:3001";
 
@@ -28,21 +28,20 @@ const getProductById = async (category, productId) => {
 };
 
 // In productService.js or a similar service module
-const addToCart = async ({ productId, quantity, token}) => {
-  console.log("gets here")
-  const response = await fetch('/api/cart/add', {
-    method: 'POST',
+const addToCart = async ({ productId, quantity, token }) => {
+  console.log("gets here");
+  const response = await fetch("/api/cart/add", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`, // Correct usage of the user's token
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`, // Correct usage of the user's token
     },
-    body: JSON.stringify({ productId, quantity })
+    body: JSON.stringify({ productId, quantity }),
   });
   if (!response.ok) {
-    throw new Error('Failed to add to cart');
+    throw new Error("Failed to add to cart");
   }
   return response.json();
 };
-
 
 export default { getAllProductsOfCategory, getProductById, addToCart };

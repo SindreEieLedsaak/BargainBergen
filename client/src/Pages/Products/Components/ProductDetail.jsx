@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import productService from "../../../services/productService";
-import { useKindeAuth } from '@kinde-oss/kinde-auth-react';
-
+import { useKindeAuth } from "@kinde-oss/kinde-auth-react";
 
 export const ProductDetail = () => {
   const { category, productId } = useParams();
@@ -16,21 +15,21 @@ export const ProductDetail = () => {
   }, [category, productId]);
 
   const addToCart = async () => {
-    console.log("Token: " + token)
+    console.log("Token: " + token);
     if (!token) {
       alert("Please log in to add items to your cart.");
       return;
     }
-    console.log('Attempting to add to cart:', product);
+    console.log("Attempting to add to cart:", product);
     try {
       const response = await productService.addToCart({
         productId: product._id,
         quantity: 1,
-        token  // Pass the token to your service function
+        token, // Pass the token to your service function
       });
-      console.log('Product added to cart:', response);
+      console.log("Product added to cart:", response);
     } catch (error) {
-      console.error('Error adding product to cart:', error);
+      console.error("Error adding product to cart:", error);
     }
   };
 
@@ -63,7 +62,6 @@ export const ProductDetail = () => {
           Add to Cart
         </button>
         {/* Include more details as needed, formatted nicely */}
-
       </div>
     </div>
   );
