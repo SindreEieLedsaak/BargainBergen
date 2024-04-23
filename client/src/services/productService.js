@@ -28,20 +28,25 @@ const getProductById = async (category, productId) => {
 };
 
 // In productService.js or a similar service module
-const addToCart = async ({ productId, quantity, token }) => {
-  console.log("gets here");
-  const response = await fetch("/api/cart/add", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`, // Correct usage of the user's token
-    },
-    body: JSON.stringify({ productId, quantity }),
+const addToCart = async ({ productId, quantity, userId }) => {
+  console.log("Adding to cart");
+  const response = await fetch(`${baseUrl}/orders/cart/add`, {
+      method: "POST",
+      headers: {
+          "Content-Type": "application/json",
+          // Optionally, you could still use Authorization if needed for other reasons,
+          // "Authorization": `Bearer ${token}`,  
+      },
+      body: JSON.stringify({ productId, quantity, userId }),
   });
   if (!response.ok) {
-    throw new Error("Failed to add to cart");
+      const error = await response.text();  // Use text to avoid JSON parse error if not JSON
+      throw new Error("Failed to add to cart: " + error);
   }
+  alert("Product has been added to your cart.");
   return response.json();
+  
 };
+
 
 export default { getAllProductsOfCategory, getProductById, addToCart };

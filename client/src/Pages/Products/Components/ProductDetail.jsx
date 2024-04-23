@@ -6,7 +6,8 @@ import { useKindeAuth } from "@kinde-oss/kinde-auth-react";
 export const ProductDetail = () => {
   const { category, productId } = useParams();
   const [product, setProduct] = useState(null);
-  const { token } = useKindeAuth();  // Accessing token directly in the component
+  const { user } = useKindeAuth();  // Properly accessing the getToken method
+
 
   useEffect(() => {
     productService.getProductById(category, productId).then((data) => {
@@ -15,17 +16,17 @@ export const ProductDetail = () => {
   }, [category, productId]);
 
   const addToCart = async () => {
-    console.log("Token: " + token);
-    if (!token) {
+    if (!user) {  // Check if user is logged in
       alert("Please log in to add items to your cart.");
       return;
     }
+    console.log("User ID: " + user.id);  // Correctly access user.id without await
     console.log("Attempting to add to cart:", product);
     try {
       const response = await productService.addToCart({
         productId: product._id,
         quantity: 1,
-        token, // Pass the token to your service function
+        userId: user.id,  // Pass userID not the entire user object unless necessary
       });
       console.log("Product added to cart:", response);
     } catch (error) {
