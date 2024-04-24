@@ -28,10 +28,8 @@ export function NavigationBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user, logout } = useKindeAuth();
 
-  const handleCartClick = () => {
-    console.log("Cart icon clicked");
-    // Here you can later add navigation to the cart page or open a modal, etc.
-};
+
+
 
   const menuItems = [
     { title: "Features", href: "#" },
@@ -48,6 +46,10 @@ export function NavigationBar() {
   const navigateToRegister = () => {
     let path = `/register`;
     navigate(path);
+  };
+
+  const handleCartClick = () => {
+    navigate('/orders'); // Navigate to the order page
   };
 
   return (
@@ -141,8 +143,8 @@ export function NavigationBar() {
           </Dropdown>
         )}
         <NavbarItem>
-              <CartIcon onClick={handleCartClick} />
-          </NavbarItem>
+          <CartIcon onClick={handleCartClick} />
+        </NavbarItem>
       </NavbarContent>
 
     </Navbar>

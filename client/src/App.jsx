@@ -9,6 +9,7 @@ import { KindeProvider } from "@kinde-oss/kinde-auth-react";
 import ProfilePage from "./Pages/ProfilePage";
 import { NavigationBar } from "./Components/Navigationbar";
 import React from "react";
+import OrderPage from "./Pages/OrderPage/OrderPage.jsx";
 
 function App() {
   const [serverStatus, setServerStatus] = useState("Checking server...");
@@ -57,6 +58,8 @@ function App() {
               element={<ProductDetail />}
             />
             <Route path="profile" element={<ProfilePage />} />
+            <Route path="/orders" element={<OrderPage />} />
+
           </Routes>
         </Router>
       </KindeProvider>

@@ -48,5 +48,22 @@ const addToCart = async ({ productId, quantity, userId }) => {
   
 };
 
+const getCurrentOrder = async (userId) => {
+  console.log("Fetching current order for user", userId);
+  const response = await fetch(`${baseUrl}/orders/current-order?userId=${userId}`, {
+      method: "GET",
+      headers: {
+          "Content-Type": "application/json",
+      }
+  });
 
-export default { getAllProductsOfCategory, getProductById, addToCart };
+  if (!response.ok) {
+      const error = await response.text();  // Use text to avoid JSON parse error if not JSON
+      throw new Error("Failed to fetch current order: " + error);
+  }
+
+  return response.json();
+};
+
+
+export default { getAllProductsOfCategory, getProductById, addToCart, getCurrentOrder };

@@ -33,6 +33,29 @@ const addItemToCart = async (req, res) => {
     res.status(500).json({ message: "Error adding item to cart", error });
   }
 };
+// Fetch the current order for a user
+const getCurrentOrder = async (req, res) => {
+  const userId = req.query.userId; // Get userId from the request query
+
+  try {
+      const order = await Order.findOne({
+          user: userId,
+          status: "pending"
+      }).populate("orderItems.product");
+
+      if (!order) {
+          console.log(`No current order found for user: ${userId}`);
+          return res.status(404).json({ message: "No current order found for this user." });
+      }
+
+      console.log(`Current order retrieved successfully for user: ${userId}`);
+      res.json(order);
+  } catch (error) {
+      console.error(`Error retrieving current order for user: ${userId}:`, error);
+      res.status(500).json({ message: "Error retrieving current order", error });
+  }
+};
+
 
 // Get cart for user
 const getCart = async (req, res) => {
@@ -54,4 +77,5 @@ const getCart = async (req, res) => {
 module.exports = {
   addItemToCart,
   getCart,
+  getCurrentOrder,
 };
