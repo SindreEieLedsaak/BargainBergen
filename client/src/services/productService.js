@@ -27,6 +27,25 @@ const getProductById = async (category, productId) => {
   return response.json();
 };
 
+const createListing = async (data) => {
+  const categoryWithS = data.category.endsWith("s")
+    ? data.category
+    : `${data.category}s`; // To match the endpoints in the backend (mongo db collections)
+  const url = `${baseUrl}/${categoryWithS}`;
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    const errorResponse = await response.json();
+
+    throw new Error(errorResponse.message || "Failed to create listing");
+  }
+}
 // In productService.js or a similar service module
 const addToCart = async ({ productId, quantity, userId }) => {
   console.log("Adding to cart");
@@ -66,4 +85,4 @@ const getCurrentOrder = async (userId) => {
 };
 
 
-export default { getAllProductsOfCategory, getProductById, addToCart, getCurrentOrder };
+export default { getAllProductsOfCategory, getProductById, addToCart, getCurrentOrder, createListing };

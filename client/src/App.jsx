@@ -9,6 +9,7 @@ import { KindeProvider } from "@kinde-oss/kinde-auth-react";
 import ProfilePage from "./Pages/ProfilePage";
 import { NavigationBar } from "./Components/Navigationbar";
 import React from "react";
+import { CreateListing } from "./Pages/CreateListing/CreateListing.jsx";
 import OrderPage from "./Pages/OrderPage/OrderPage.jsx";
 
 function App() {
@@ -53,6 +54,7 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegistrationPage />} />
             <Route path="/products/clothing" element={<Clothing />} />
+            <Route path="/create-listing" element={<CreateListing />} />
             <Route
               path="/products/:category/:productId"
               element={<ProductDetail />}

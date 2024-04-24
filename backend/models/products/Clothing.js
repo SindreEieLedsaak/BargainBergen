@@ -12,7 +12,12 @@ const clothingSchema = new mongoose.Schema({
   sellerID: { type: String, required: true },
   category: { type: String, required: false },
   img: { type: String, required: false },
+  canShip: { type: Boolean, required: false, default: false },
+  address: { type: String, required: true },
 });
+
+// Creating index for sellerID for efficient querying
+clothingSchema.index({ sellerID: 1 }); // The '1' specifies an ascending index
 
 const Clothing = mongoose.model("Clothing", clothingSchema);
 
