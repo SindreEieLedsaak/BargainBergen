@@ -1,2 +1,0 @@
-PORT=3001
-MONGODB_URI='mongodb+srv://jvalen:StudentiBergen@cluster251.2bmzlk3.mongodb.net/BargainBergenDB?retryWrites=true&w=majority'

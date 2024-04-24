@@ -1,5 +1,6 @@
 ## How to start the app:
-open a terminal and go to the backend folder. 
+
+open a terminal and go to the backend folder.
 Run: node server.js.
 This will start the mongoDB database connection and server
 

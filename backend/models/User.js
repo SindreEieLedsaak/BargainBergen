@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
@@ -8,9 +8,9 @@ const userSchema = new mongoose.Schema({
   roles: [
     {
       type: String,
-      enum: ['user', 'admin'],
+      enum: ["user", "admin"],
       required: true,
-    }
+    },
   ],
   profilePicture: {
     type: String,
@@ -19,17 +19,17 @@ const userSchema = new mongoose.Schema({
   listings: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Listing',
-    }
+      ref: "Listing",
+    },
   ],
 });
 
 // Pre-save hook to hash password
-userSchema.pre('save', function (next) {
+userSchema.pre("save", function (next) {
   let user = this;
 
   // Only hash the password if it has been modified (or is new)
-  if (!user.isModified('password')) return next();
+  if (!user.isModified("password")) return next();
 
   // Generate a salt
   bcrypt.genSalt(SALT_WORK_FACTOR, (err, salt) => {
@@ -46,4 +46,4 @@ userSchema.pre('save', function (next) {
   });
 });
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model("User", userSchema);

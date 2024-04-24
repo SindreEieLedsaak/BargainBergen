@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGoogle, faApple, faFacebook } from "@fortawesome/free-brands-svg-icons";
+import {
+  faGoogle,
+  faApple,
+  faFacebook,
+} from "@fortawesome/free-brands-svg-icons";
 import {
   faInfinity,
   faCheck,
@@ -18,7 +22,12 @@ const LoginPage = () => {
 
   const handleSignIn = (event) => {
     event.preventDefault();
-    // sign-in logic here
+    login({
+      authUrlParams: {
+        connection_id: process.env.VITE_KINDE_CONNECTION_EMAIL_PASSWORD,
+        login_hint: email,
+      },
+    });
   };
 
   return (
@@ -55,14 +64,16 @@ const LoginPage = () => {
         >
           <FontAwesomeIcon icon={faGoogle} /> Sign in using Google
         </button>
-        <button className="oauth-button facebook"
-        onClick={() =>
-          login({
-            authUrlParams: {
-              connection_id: process.env.VITE_KINDE_CONNECTION_FACEBOOK,
-            },
-          })
-        }>
+        <button
+          className="oauth-button facebook"
+          onClick={() =>
+            login({
+              authUrlParams: {
+                connection_id: process.env.VITE_KINDE_CONNECTION_FACEBOOK,
+              },
+            })
+          }
+        >
           <FontAwesomeIcon icon={faFacebook} /> Sign in using Facebook
         </button>
         <form onSubmit={handleSignIn}>
@@ -73,20 +84,7 @@ const LoginPage = () => {
             placeholder="Email address"
             required
           />
-          <button
-            type="submit"
-            onClick={() =>
-              login({
-                authUrlParams: {
-                  connection_id: process.env
-                    .VITE_KINDE_CONNECTION_EMAIL_PASSWORD,
-                  login_hint: email,
-                },
-              })
-            }
-          >
-            Sign in with email
-          </button>
+          <button type="submit">Sign in with email</button>
         </form>
       </div>
     </div>

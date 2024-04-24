@@ -1,14 +1,9 @@
-import React from "react";
 import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
+import React from "react";
 
 const CardComponent = ({ item, uniqueKey }) => {
   return (
-    <Card
-      shadow="sm"
-      fullWidth={false}
-      isPressable
-      onPress={() => console.log("item pressed ")}
-    >
+    <Card shadow="sm" isPressable onPress={() => console.log("item pressed ")}>
       <CardBody className="overflow-visible p-0">
         <Image
           shadow="sm"

@@ -1,10 +1,8 @@
-name: Node.js CI
-
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   test:
@@ -15,49 +13,70 @@ jobs:
         node-version: [16.x]
 
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    # Setup Node.js version
-    - uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    
-    # Cache node_modules and Cypress binary
-    - name: Cache dependencies
-      uses: actions/cache@v2
-      with:
-        path: |
-          ~/.npm
-          ~/.cache/Cypress
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-node-
+      # Setup Node.js version
+      - uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
 
-    # Install frontend dependencies
-    - name: Install frontend dependencies
-      run: npm ci
-      working-directory: ./client
+      # Cache node_modules and Cypress binary
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.npm
+            ~/.cache/Cypress
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
-    # Test frontend with Jest
-    - name: Test frontend
-      run: npm test
-      working-directory: ./client
-      env:
-        CI: true
-        VITE_KINDE_CONNECTION_EMAIL_PASSWORD: mock_connection_id
-        VITE_KINDE_CONNECTION_GOOGLE: mock_google_connection_id
-        VITE_KINDE_CONNECTION_FACEBOOK: mock_facebook_connection_id
+      # Install frontend dependencies
+      - name: Install frontend dependencies
+        run: npm ci
+        working-directory: ./client
 
-    # Install backend dependencies
-    - name: Install backend dependencies
-      run: npm ci
-      working-directory: ./backend
+      # Test frontend with Jest
+      - name: Test frontend
+        run: npm test
+        working-directory: ./client
+        env:
+          CI: true
+          VITE_KINDE_CONNECTION_EMAIL_PASSWORD: mock_connection_id
+          VITE_KINDE_CONNECTION_GOOGLE: mock_google_connection_id
+          VITE_KINDE_CONNECTION_FACEBOOK: mock_facebook_connection_id
 
-    # Test backend with Jest
-    - name: Test backend
-      run: npm test
-      working-directory: ./backend
-      env:
-        CI: true
+      # Install backend dependencies
+      - name: Install backend dependencies
+        run: npm ci
+        working-directory: ./backend
 
+      # Test backend with Jest
+      - name: Test backend
+        run: npm test
+        working-directory: ./backend
+        env:
+          CI: true
+
+      # Install Cypress dependencies
+      - name: Install Cypress dependencies
+        run: npm ci
+        working-directory: ./client
+
+      # Run Cypress testd# Start the frontend server in the background
+      - name: Start frontend server
+        run: npm run dev &
+        working-directory: ./client
+
+      # Wait for the frontend server to be responsive
+      - name: Wait for frontend server to be up
+        run: npx wait-on http://localhost:5173
+        working-directory: ./client
+
+      # Run Cypress E2E tests
+      - name: Cypress run
+        run: npm run cy:run
+        working-directory: ./client
+        env:
+          CI: true

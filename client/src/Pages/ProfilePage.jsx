@@ -14,7 +14,7 @@ const ProfilePage = () => {
 
   return (
     <div className="bg-white-to-green min-h-screen">
-      <Navigationbar />
+      
       <div className="container mx-auto">
         <div className="text-center mb-4">
           <h1 className="text-3xl font-semibold text-gray-800">Your Account</h1>
