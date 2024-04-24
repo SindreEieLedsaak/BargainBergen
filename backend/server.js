@@ -2,6 +2,7 @@ const express = require("express");
 require("dotenv").config();
 const userRoutes = require("./routes/userRoutes");
 const clothingRoutes = require("./routes/products/clothingRoutes");
+const orderRoutes = require("./routes/orderRoutes");
 const cors = require("cors");
 const connectDB = require("./db");
 
@@ -12,6 +13,7 @@ app.use(cors());
 app.use(express.json());
 app.use("/users", userRoutes);
 app.use("/clothings", clothingRoutes);
+app.use("/orders", orderRoutes);
 
 app.get("/", (req, res) => {
   res.send("API is running.");

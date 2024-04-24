@@ -18,10 +18,18 @@ import {
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useKindeAuth } from "@kinde-oss/kinde-auth-react";
+import CartIcon from './CartIcon'; // Make sure the path to CartIcon is correct
+
+
+
+
 
 export function NavigationBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user, logout } = useKindeAuth();
+
+
+
 
   const menuItems = [
     { title: "Features", href: "#" },
@@ -38,6 +46,10 @@ export function NavigationBar() {
   const navigateToRegister = () => {
     let path = `/register`;
     navigate(path);
+  };
+
+  const handleCartClick = () => {
+    navigate('/orders'); // Navigate to the order page
   };
 
   return (
@@ -91,7 +103,7 @@ export function NavigationBar() {
             </DropdownTrigger>
             <DropdownMenu aria-label="Profile Actions" variant="flat">
               <DropdownItem key="profile" className="h-14 gap-2">
-                <p className="font-semibold">Signed in as</p>
+                <p className="font-semibold">Signed in as {user.email}</p>
                 <p className="font-semibold">{user.given_name}</p>
               </DropdownItem>
               <DropdownItem key="settings" onClick={() => navigate("/profile")}>
@@ -130,7 +142,11 @@ export function NavigationBar() {
             </DropdownMenu>
           </Dropdown>
         )}
+        <NavbarItem>
+          <CartIcon onClick={handleCartClick} />
+        </NavbarItem>
       </NavbarContent>
+
     </Navbar>
   );
 }

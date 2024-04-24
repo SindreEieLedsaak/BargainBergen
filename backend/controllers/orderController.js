@@ -1,57 +1,81 @@
-const Order = require('../models/Order');
+const Order = require("../models/Order");
 
-const createOrder = async (req, res) => {
+
+// Add item to the cart
+const addItemToCart = async (req, res) => {
+  const { productId, quantity, size, color, userId } = req.body;  // Including userId from request body
+
+  console.log(`Attempting to add item to cart for user ${userId}`);
+
   try {
-    const newOrder = new Order(req.body);
-    await newOrder.save();
-    res.status(201).json(newOrder);
+    let order = await Order.findOne({ user: userId, status: "pending" });
+    if (!order) {
+      console.log("No pending order found, creating a new one");
+      order = new Order({
+        user: userId,
+        orderItems: [{ product: productId, quantity, size, color }],
+      });
+    } else {
+      const itemIndex = order.orderItems.findIndex(
+        (item) => item.product.toString() === productId
+      );
+      if (itemIndex > -1) {
+        order.orderItems[itemIndex].quantity += quantity;
+      } else {
+        order.orderItems.push({ product: productId, quantity, size, color });
+      }
+    }
+    await order.save();
+    console.log("Order updated successfully");
+    res.status(201).json(order);
   } catch (error) {
-    res.status(400).json({ message: "Failed to create order", error });
+    console.error("Error adding item to cart:", error);
+    res.status(500).json({ message: "Error adding item to cart", error });
+  }
+};
+// Fetch the current order for a user
+const getCurrentOrder = async (req, res) => {
+  const userId = req.query.userId; // Get userId from the request query
+
+  try {
+      const order = await Order.findOne({
+          user: userId,
+          status: "pending"
+      }).populate("orderItems.product");
+
+      if (!order) {
+          console.log(`No current order found for user: ${userId}`);
+          return res.status(404).json({ message: "No current order found for this user." });
+      }
+
+      console.log(`Current order retrieved successfully for user: ${userId}`);
+      res.json(order);
+  } catch (error) {
+      console.error(`Error retrieving current order for user: ${userId}:`, error);
+      res.status(500).json({ message: "Error retrieving current order", error });
   }
 };
 
-const getOrderById = async (req, res) => {
-  try {
-    const order = await Order.findById(req.params.orderId);
-    if (!order) return res.status(404).json({ message: "Order not found" });
-    res.json(order);
-  } catch (error) {
-    res.status(500).json({ message: "Failed to get order", error });
-  }
-};
 
-const getAllOrders = async (req, res) => {
+// Get cart for user
+const getCart = async (req, res) => {
+  const userId = req.user._id;
   try {
-    const orders = await Order.find({ userId: req.params.userId });
-    res.json(orders);
+    const order = await Order.findOne({
+      user: userId,
+      status: "pending",
+    }).populate("orderItems.product");
+    if (!order) {
+      return res.status(404).json({ message: "No cart found" });
+    }
+    res.status(200).json(order);
   } catch (error) {
-    res.status(500).json({ message: "Failed to get orders", error });
-  }
-};
-
-const updateOrder = async (req, res) => {
-  try {
-    const updatedOrder = await Order.findByIdAndUpdate(req.params.orderId, req.body, { new: true });
-    res.json(updatedOrder);
-  } catch (error) {
-    res.status(400).json({ message: "Failed to update order", error });
-  }
-};
-
-const deleteOrder = async (req, res) => {
-  try {
-    const deletedOrder = await Order.findByIdAndDelete(req.params.orderId);
-    if (!deletedOrder) return res.status(404).json({ message: "Order not found" });
-    res.json({ message: "Order deleted successfully" });
-  } catch (error) {
-    res.status(500).json({ message: "Failed to delete order", error });
+    res.status(500).json({ message: "Error getting cart", error });
   }
 };
 
 module.exports = {
-    createOrder,
-    getOrderById,
-    getAllOrders,
-    updateOrder,
-    deleteOrder,
-}
+  addItemToCart,
+  getCart,
+  getCurrentOrder,
+};

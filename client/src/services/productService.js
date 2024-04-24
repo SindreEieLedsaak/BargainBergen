@@ -1,3 +1,5 @@
+import { useKindeAuth } from "@kinde-oss/kinde-auth-react";
+
 const baseUrl = process.env.VITE_API_URL || "http://localhost:3001";
 
 const getAllProductsOfCategory = async (category, filter) => {
@@ -25,4 +27,43 @@ const getProductById = async (category, productId) => {
   return response.json();
 };
 
-export default { getAllProductsOfCategory, getProductById };
+// In productService.js or a similar service module
+const addToCart = async ({ productId, quantity, userId }) => {
+  console.log("Adding to cart");
+  const response = await fetch(`${baseUrl}/orders/cart/add`, {
+      method: "POST",
+      headers: {
+          "Content-Type": "application/json",
+          // Optionally, you could still use Authorization if needed for other reasons,
+          // "Authorization": `Bearer ${token}`,  
+      },
+      body: JSON.stringify({ productId, quantity, userId }),
+  });
+  if (!response.ok) {
+      const error = await response.text();  // Use text to avoid JSON parse error if not JSON
+      throw new Error("Failed to add to cart: " + error);
+  }
+  alert("Product has been added to your cart.");
+  return response.json();
+  
+};
+
+const getCurrentOrder = async (userId) => {
+  console.log("Fetching current order for user", userId);
+  const response = await fetch(`${baseUrl}/orders/current-order?userId=${userId}`, {
+      method: "GET",
+      headers: {
+          "Content-Type": "application/json",
+      }
+  });
+
+  if (!response.ok) {
+      const error = await response.text();  // Use text to avoid JSON parse error if not JSON
+      throw new Error("Failed to fetch current order: " + error);
+  }
+
+  return response.json();
+};
+
+
+export default { getAllProductsOfCategory, getProductById, addToCart, getCurrentOrder };

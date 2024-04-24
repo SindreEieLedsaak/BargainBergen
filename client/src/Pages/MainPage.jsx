@@ -21,28 +21,28 @@ const profiles = [
     "John Doe",
     "Software Engineer",
     "https://www.example.com/johndoe123",
-    { src: "https://www.exampleimage.com/avatar1.png" }
+    { src: "https://www.exampleimage.com/avatar1.png" },
   ),
   new Profile(
     "janedoe123",
     "Jane Doe",
     "Graphic Designer",
     "https://www.example.com/janedoe123",
-    { src: "https://www.exampleimage.com/avatar2.png" }
+    { src: "https://www.exampleimage.com/avatar2.png" },
   ),
   new Profile(
     "mikesmith123",
     "Mike Smith",
     "Digital Marketer",
     "https://www.example.com/mikesmith123",
-    { src: "https://www.exampleimage.com/avatar3.png" }
+    { src: "https://www.exampleimage.com/avatar3.png" },
   ),
   new Profile(
     "sarahbrown123",
     "Sarah Brown",
     "Content Writer",
     "https://www.example.com/sarahbrown123",
-    { src: "https://www.exampleimage.com/avatar4.png" }
+    { src: "https://www.exampleimage.com/avatar4.png" },
   ),
 ];
 
