@@ -1,16 +1,39 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import productService from "../../../services/productService";
+import { useKindeAuth } from "@kinde-oss/kinde-auth-react";
+
 
 export const ProductDetail = () => {
   const { category, productId } = useParams();
   const [product, setProduct] = useState(null);
+  const { user } = useKindeAuth();  // Properly accessing the getToken method
+
 
   useEffect(() => {
     productService.getProductById(category, productId).then((data) => {
       setProduct(data);
     });
   }, [category, productId]);
+
+  const addToCart = async () => {
+    if (!user) {  // Check if user is logged in
+      alert("Please log in to add items to your cart.");
+      return;
+    }
+    console.log("User ID: " + user.id);  // Correctly access user.id without await
+    console.log("Attempting to add to cart:", product);
+    try {
+      const response = await productService.addToCart({
+        productId: product._id,
+        quantity: 1,
+        userId: user.id,  // Pass userID not the entire user object unless necessary
+      });
+      console.log("Product added to cart:", response);
+    } catch (error) {
+      console.error("Error adding product to cart:", error);
+    }
+  };
 
   if (!product) {
     return (
@@ -34,6 +57,12 @@ export const ProductDetail = () => {
       {/* Additional details can be displayed in a structured way below */}
       <div className="mt-6 space-y-3 text-gray-700">
         <p className="text-sm md:text-base">{product.description}</p>
+        <button
+          onClick={() => addToCart(product)}
+          className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Add to Cart
+        </button>
         {/* Include more details as needed, formatted nicely */}
       </div>
     </div>
