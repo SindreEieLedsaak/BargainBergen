@@ -2,11 +2,36 @@ import React, { useState } from "react";
 
 const Detailsform = ({ user }) => {
   const [language, setLanguage] = useState("English (US)");
+  const [name, setName] = useState(user.given_name + " " + user.family_name);
+  const [email, setEmail] = useState(user.email);
+  const [avatar, setAvatar] = useState(null);
+
+  const handleSubmit = (e) => {
+    console.log("Form submitted");
+    e.preventDefault();
+  };
+
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+  };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handleAvatarChange = (e) => {
+    setAvatar(e.target.files[0]);
+  };
+
+  const handleLanguageChange = (e) => {
+    setLanguage(e.target.value);
+  };
+
   return (
     <div className="p-6">
       <div className="p-6">
         <div className="max-w-4xl mx-auto">
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="mb-6">
               <label
                 htmlFor="name"
@@ -15,6 +40,7 @@ const Detailsform = ({ user }) => {
                 Name
               </label>
               <input
+                onChange={handleNameChange}
                 type="text"
                 id="name"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
@@ -29,6 +55,7 @@ const Detailsform = ({ user }) => {
                 Email
               </label>
               <input
+                onChange={handleEmailChange}
                 type="email"
                 id="email"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
@@ -43,6 +70,7 @@ const Detailsform = ({ user }) => {
                 Avatar
               </label>
               <input
+                onChange={handleAvatarChange}
                 type="file"
                 id="avatar"
                 className="bg-gray-50 text-gray-900 text-sm rounded-lg block w-full p-2.5"
@@ -59,7 +87,7 @@ const Detailsform = ({ user }) => {
                 id="language"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 defaultValue="English (US)"
-                onChange={(e) => setLanguage(e.target.value)}
+                onChange={handleLanguageChange}
               >
                 <option value="English (US)">English (US)</option>
                 <option value="Spanish">Spanish</option>
