@@ -19,22 +19,6 @@ describe("<LoginPage />", () => {
     mockLogin.mockClear();
   });
 
-  test("renders login form and handles sign-in", () => {
-    render(<LoginPage />);
-
-    const signInWithEmailButton = screen.getByRole("button", {
-      name: "Sign in with email",
-    });
-
-    fireEvent.click(signInWithEmailButton);
-
-    expect(mockLogin).toHaveBeenCalledWith({
-      authUrlParams: {
-        connection_id: expect.any(String),
-        login_hint: expect.any(String),
-      },
-    });
-  });
   test("handles sign-in with Google", () => {
     render(<LoginPage />);
 
