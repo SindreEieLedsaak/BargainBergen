@@ -11,7 +11,7 @@ export const ProductCard = ({ category, product }) => {
       {img != null ? (
         <img
           className="w-full h-48 object-cover object-center"
-          src={`data:image/jpeg;base64,${img}`}
+          src={img}
           alt={header}
         />
       ) : (

@@ -43,6 +43,10 @@ export function NavigationBar() {
     let path = `/register`;
     navigate(path);
   };
+  const navigateToCreateListing = () => {
+    let path = `/create-listing`;
+    navigate(path);
+  };
 
   const handleCartClick = () => {
     navigate('/orders'); // Navigate to the order page
@@ -104,6 +108,9 @@ export function NavigationBar() {
               </DropdownItem>
               <DropdownItem key="settings" onClick={() => navigate("/profile")}>
                 My Profile
+              </DropdownItem>
+              <DropdownItem key="settings" onClick={navigateToCreateListing}>
+                Create Listing
               </DropdownItem>
               <DropdownItem key="analytics">Analytics</DropdownItem>
               <DropdownItem key="system">System</DropdownItem>
