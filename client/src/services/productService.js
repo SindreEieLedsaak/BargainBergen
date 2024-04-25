@@ -84,5 +84,35 @@ const getCurrentOrder = async (userId) => {
   return response.json();
 };
 
+// Function to call the backend for AI-generated description
+async function generateDescription(header, price, canShip, category, color) {
+  try {
+    const response = await fetch(`${baseUrl}/ai/generate-description`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        header: header,
+        price: price,
+        canShip: canShip,
+        category: category,
+        color: color
+      })
+    });
 
-export default { getAllProductsOfCategory, getProductById, addToCart, getCurrentOrder, createListing };
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const result = await response.json();
+    return result.description;
+  } catch (error) {
+    console.error('Error generating description:', error);
+    return "Failed to generate description. Please try again.";
+  }
+}
+
+
+
+export default { getAllProductsOfCategory, getProductById, addToCart, getCurrentOrder, createListing, generateDescription };
