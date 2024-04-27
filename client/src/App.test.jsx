@@ -34,7 +34,7 @@ describe("App component", () => {
   });
 
   test("handles server error response", async () => {
-    fetch.mockImplementationOnce(() =>
+    fetch.mockImplementation(() =>
       Promise.resolve({
         ok: false,
       }),
@@ -48,7 +48,7 @@ describe("App component", () => {
   });
 
   test("handles server exception", async () => {
-    fetch.mockImplementationOnce(() =>
+    fetch.mockImplementation(() =>
       Promise.reject(new Error("Network error")),
     );
 
