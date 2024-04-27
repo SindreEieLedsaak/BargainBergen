@@ -2,7 +2,7 @@ export const Layout = ({ menu, children, onFilterChange }) => {
   return (
     <div className="h-full w-full bg-gray-100">
       <div className="flex flex-row bg-gray-800">
-        <aside className="w-64 px-8 py-4 text-white flex flex-col">
+        <aside className="w-36 lg:w-40 2xl:w-64 px-2 lg:px-8 py-4 text-white flex flex-col">
           {/* Dynamic navigation menu items */}
           <nav className="pt-28">
             <ul className="space-y-2">
@@ -19,7 +19,7 @@ export const Layout = ({ menu, children, onFilterChange }) => {
             </ul>
           </nav>
         </aside>
-        <main className="flex-grow overflow-auto">
+        <main className="flex-grow ">
           <div className="bg-white-to-green min-h-screen">{children}</div>
         </main>
       </div>

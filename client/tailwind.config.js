@@ -16,6 +16,7 @@ export default {
         "3xl": "1880px",
         "white-to-green":
           "linear-gradient(to top right, #FFFFFF, #FFFFFF 60%, #D1F4E0)",
+        "4prods": "1500px",
       },
     },
   },

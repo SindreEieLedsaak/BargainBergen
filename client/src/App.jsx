@@ -37,15 +37,15 @@ function App() {
   }, []); // Empty dependency array means this effect will only run once, after the initial render
 
   return (
-    <div className="3xl:flex 3xl:justify-center max-w-screen-3xl 3xl:mx-auto bg-white-to-green">
-      <KindeProvider
-        clientId="70f77d0ff99d4eeeafb649dc8c28c00f"
-        domain="https://bargianbergen.kinde.com"
-        redirectUri="http://localhost:5173"
-        logoutUri="http://localhost:5173"
-      >
-        <Router>
-          <NavigationBar />
+    <KindeProvider
+      clientId="70f77d0ff99d4eeeafb649dc8c28c00f"
+      domain="https://bargianbergen.kinde.com"
+      redirectUri="http://localhost:5173"
+      logoutUri="http://localhost:5173"
+    >
+      <Router>
+        <NavigationBar />
+        <div className="max-w-screen-3xl mx-auto">
           <Routes>
             <Route
               path="/"
@@ -60,14 +60,13 @@ function App() {
               path="/products/:category/:productId"
               element={<ProductDetail />}
             />
-            
+
             <Route path="profile" element={<ProfilePage />} />
             <Route path="/orders" element={<OrderPage />} />
-
           </Routes>
-        </Router>
-      </KindeProvider>
-    </div>
+        </div>
+      </Router>
+    </KindeProvider>
   );
 }
 

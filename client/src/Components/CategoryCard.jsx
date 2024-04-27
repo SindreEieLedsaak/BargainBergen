@@ -1,18 +1,19 @@
 import { Link } from "react-router-dom";
 
-export const ProductCard = ({ endpoint, product }) => {
-  const { _id, header, price, img, category: productCategory } = product;
-
+export const CategoryCard = ({ item }) => {
+  const { title, imageSrc } = item ?? {};
+  if (!title) return null;
+  const categoryToLower = title.toLowerCase();
   return (
     <Link
-      to={`/products/${endpoint}/${_id}`}
+      to={`/products/${categoryToLower}/`}
       className="w-60 h-80 md:w-60 lg:w-68 xl:w-72  3xl:w-80 rounded overflow-hidden shadow-lg bg-white block"
     >
-      {img != null ? (
+      {item.imageSrc != null ? (
         <img
           className="w-full h-48 object-cover object-center"
-          src={img}
-          alt={header}
+          src={imageSrc}
+          alt={title}
         />
       ) : (
         <div className="bg-gray-200 w-full h-48 flex items-center justify-center">
@@ -20,8 +21,7 @@ export const ProductCard = ({ endpoint, product }) => {
         </div>
       )}
       <div className="px-6 py-4">
-        <div className="font-bold text-xl mb-2">{header}</div>
-        <p className="text-gray-700 text-base">${price}</p>
+        <div className="font-bold text-xl mb-2">{title}</div>
       </div>
     </Link>
   );
