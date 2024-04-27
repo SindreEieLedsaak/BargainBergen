@@ -1,15 +1,25 @@
 const Clothing = require("../../models/products/Clothing");
 
 // Function to get all clothing items or filter by category
-const getAllClothing = async (req, res) => {
-  const category = req.query.category;
-  const query = category ? { category: category } : {}; // If category exists, use it in the query, otherwise fetch all
+const getClothing = async (req, res) => {
+  const { sellerID, category } = req.query;
+  let query = {};
+
+  if (category) {
+    query.category = category;
+  }
+  if (sellerID) {
+    query.sellerID = sellerID;
+  }
 
   try {
     const clothingItems = await Clothing.find(query);
+    if (clothingItems.length === 0) {
+      return res.status(404).json({ message: "No clothing items found" });
+    }
     res.status(200).json(clothingItems);
   } catch (error) {
-    res.status(500).json({ message: "Error getting clothing items", error });
+    res.status(500).json({ message: "Error retrieving clothing items", error });
   }
 };
 
@@ -65,7 +75,7 @@ const getClothingById = async (req, res) => {
 };
 
 module.exports = {
-  getAllClothing,
+  getClothing,
   createClothingListing,
   getClothingById,
 };

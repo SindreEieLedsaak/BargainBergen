@@ -4,7 +4,7 @@ const clothingController = require("../../controllers/products/clothingControlle
 //const protect = require('../../middleware/authMiddleware'); // TODO: create protection middleware
 
 // GET: Retrieve all clothing items
-router.get("/", clothingController.getAllClothing);
+router.get("/", clothingController.getClothing);
 
 // GET: Retrieve a specific clothing item by id
 router.get("/:id", clothingController.getClothingById);
