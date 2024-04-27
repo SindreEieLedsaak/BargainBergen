@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import productService from "../../services/productService";
 import { Layout } from "../../Components/Layout";
-import { ProductCard } from "./Components/ProductCard";
+import { CardCollection } from "../../Components/CardCollection";
 
 export const Clothing = () => {
   const [clothing, setClothing] = useState([]);
@@ -29,18 +29,12 @@ export const Clothing = () => {
   return (
     <Layout menu={clothingMenu} onFilterChange={handleFilterChange}>
       <div className="p-10 flex flex-col gap-10">
-        <div className="flex justify-left min-h-56">
+        <div className="flex justify-left min-h-32">
           <h1 className="text-5xl pt-5 border-b w-full h-fit">
             Clothes <span className="text-2xl">{selectedFilter}</span>
           </h1>
         </div>
-        <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-10">
-          {clothing.map((product, index) => (
-            <div key={index}>
-              <ProductCard category="clothings" product={product} />
-            </div>
-          ))}
-        </div>
+        <CardCollection items={clothing} endpoint="clothings" />
       </div>
     </Layout>
   );

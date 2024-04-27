@@ -1,42 +1,36 @@
-import CardComponent from "./CardComponent";
-import { Link } from "react-router-dom";
 import React from "react";
+import { CategoryCard } from "./CategoryCard";
+import { ProductCard } from "../Pages/Products/Components/ProductCard";
 
-const CardCollection = ({ title, items, cols }) => {
-  // Function to map cols prop to Tailwind's grid-cols classes
-  const getGridColsClass = (cols) => {
-    switch (cols) {
-      case 1:
-        return "grid-cols-1";
-      case 2:
-        return "grid-cols-2";
-      case 3:
-        return "grid-cols-3";
-      case 4:
-        return "grid-cols-4";
-      default:
-        return "grid-cols-1";
-    }
-  };
-
-  const gridColsClass = getGridColsClass(cols);
-
+export const CardCollection = ({
+  title,
+  items,
+  category = false,
+  endpoint = "",
+}) => {
+  if (!category) {
+    return (
+      <div className="p-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 4prods:grid-cols-4 gap-x-4 gap-y-10">
+          {items.map((product, index) => (
+            <div key={index}>
+              <ProductCard endpoint={endpoint} product={product} />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
   return (
-    <div>
+    <div className="p-5">
       <h1 className="text-3xl pt-16 px-3 text-primary-900 ">{title}</h1>
-      <div
-        className={`pt-3 px-3 gap-2 grid ${gridColsClass} sm:${gridColsClass}`}
-      >
+      <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-10">
         {items.map((item, index) => (
           <div key={index}>
-            <Link to={item.link}>
-              <CardComponent item={item} uniqueKey={index} />
-            </Link>
+            <CategoryCard item={item} />
           </div>
         ))}
       </div>
     </div>
   );
 };
-
-export default CardCollection;
