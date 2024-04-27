@@ -4,6 +4,7 @@ import Category from "../Classes/Category";
 import Profile from "../Classes/Profile";
 import ProfileCollection from "../Components/ProfileCollection";
 import React from "react";
+import HotProducts from "./HotProducts";
 
 const items = [
   new Item("Sweater", "", "20", "clothing"),
@@ -68,7 +69,7 @@ const MainPage = ({ serverStatus }) => {
     <div className="min-h-screen bg-white-to-green">
       <h1 className="text-3xl text-primary text-center">Server Status</h1>
       <p className="text-center">{serverStatus}</p>
-      <CardCollection title={"Hot products"} items={items} category={true} />
+      <HotProducts />
       <CardCollection
         title={"Popular categories"}
         items={categories}
