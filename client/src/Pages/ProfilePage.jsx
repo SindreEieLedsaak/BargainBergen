@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import Navigationbar from "../Components/Navigationbar";
 import Detailsform from "./Forms/Detailsform";
 import Passwordform from "./Forms/Passwordform";
 import { useKindeAuth } from "@kinde-oss/kinde-auth-react";
+import { MyListings } from "../Components/MyListings";
 
 const ProfilePage = () => {
   const user = useKindeAuth();
   const [activeTab, setActiveTab] = useState("details");
+  const currentUser = user.getUser();
 
   const handleTabClick = (tabName) => {
     setActiveTab(tabName);
@@ -14,7 +15,6 @@ const ProfilePage = () => {
 
   return (
     <div className="bg-white-to-green min-h-screen">
-      
       <div className="container mx-auto">
         <div className="text-center mb-4">
           <h1 className="text-3xl font-semibold text-gray-800">Your Account</h1>
@@ -38,6 +38,18 @@ const ProfilePage = () => {
                 </li>
                 <li className="mr-2">
                   <a
+                    onClick={() => handleTabClick("listings")}
+                    className={`inline-block p-4 rounded-t-lg border-b-2 ${
+                      activeTab === "listings"
+                        ? "border-blue-600"
+                        : "border-transparent hover:border-gray-300"
+                    }`}
+                  >
+                    My Listings
+                  </a>
+                </li>
+                <li className="mr-2">
+                  <a
                     onClick={() => handleTabClick("password")}
                     className={`inline-block p-4 rounded-t-lg border-b-2 ${
                       activeTab === "password"
@@ -48,13 +60,15 @@ const ProfilePage = () => {
                     Password
                   </a>
                 </li>
+
                 {/* More tabs */}
               </ul>
             </div>
           </div>
           {/* Tab Content */}
-          {activeTab === "details" && <Detailsform user={user.getUser()} />}
+          {activeTab === "details" && <Detailsform user={currentUser} />}
           {activeTab === "password" && <Passwordform />}
+          {activeTab === "listings" && <MyListings sellerID={currentUser.id} />}
         </div>
       </div>
     </div>

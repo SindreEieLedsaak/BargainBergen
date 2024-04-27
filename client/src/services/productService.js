@@ -45,40 +45,42 @@ const createListing = async (data) => {
 
     throw new Error(errorResponse.message || "Failed to create listing");
   }
-}
+};
 // In productService.js or a similar service module
 const addToCart = async ({ productId, quantity, userId }) => {
   console.log("Adding to cart");
   const response = await fetch(`${baseUrl}/orders/cart/add`, {
-      method: "POST",
-      headers: {
-          "Content-Type": "application/json",
-          // Optionally, you could still use Authorization if needed for other reasons,
-          // "Authorization": `Bearer ${token}`,  
-      },
-      body: JSON.stringify({ productId, quantity, userId }),
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      // Optionally, you could still use Authorization if needed for other reasons,
+      // "Authorization": `Bearer ${token}`,
+    },
+    body: JSON.stringify({ productId, quantity, userId }),
   });
   if (!response.ok) {
-      const error = await response.text();  // Use text to avoid JSON parse error if not JSON
-      throw new Error("Failed to add to cart: " + error);
+    const error = await response.text(); // Use text to avoid JSON parse error if not JSON
+    throw new Error("Failed to add to cart: " + error);
   }
   alert("Product has been added to your cart.");
   return response.json();
-  
 };
 
 const getCurrentOrder = async (userId) => {
   console.log("Fetching current order for user", userId);
-  const response = await fetch(`${baseUrl}/orders/current-order?userId=${userId}`, {
+  const response = await fetch(
+    `${baseUrl}/orders/current-order?userId=${userId}`,
+    {
       method: "GET",
       headers: {
-          "Content-Type": "application/json",
-      }
-  });
+        "Content-Type": "application/json",
+      },
+    }
+  );
 
   if (!response.ok) {
-      const error = await response.text();  // Use text to avoid JSON parse error if not JSON
-      throw new Error("Failed to fetch current order: " + error);
+    const error = await response.text(); // Use text to avoid JSON parse error if not JSON
+    throw new Error("Failed to fetch current order: " + error);
   }
 
   return response.json();
@@ -88,31 +90,51 @@ const getCurrentOrder = async (userId) => {
 async function generateDescription(header, price, canShip, category, color) {
   try {
     const response = await fetch(`${baseUrl}/ai/generate-description`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         header: header,
         price: price,
         canShip: canShip,
         category: category,
-        color: color
-      })
+        color: color,
+      }),
     });
 
     if (!response.ok) {
-      throw new Error('Network response was not ok');
+      throw new Error("Network response was not ok");
     }
 
     const result = await response.json();
     return result.description;
   } catch (error) {
-    console.error('Error generating description:', error);
+    console.error("Error generating description:", error);
     return "Failed to generate description. Please try again.";
   }
 }
 
+const getProductsBySeller = async (sellerID) => {
+  if (!sellerID) {
+    throw new Error("Seller ID is required");
+  }
+  const url = `${baseUrl}/clothings/?sellerID=${encodeURIComponent(sellerID)}`;
+  const response = await fetch(url);
 
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
 
-export default { getAllProductsOfCategory, getProductById, addToCart, getCurrentOrder, createListing, generateDescription };
+  return response.json();
+};
+
+export default {
+  getAllProductsOfCategory,
+  getProductById,
+  addToCart,
+  getCurrentOrder,
+  createListing,
+  generateDescription,
+  getProductsBySeller,
+};

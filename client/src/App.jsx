@@ -12,6 +12,7 @@ import { NavigationBar } from "./Components/Navigationbar";
 import React from "react";
 import { CreateListing } from "./Pages/CreateListing/CreateListing.jsx";
 import OrderPage from "./Pages/OrderPage/OrderPage.jsx";
+import { ListingSuccess } from "./Pages/CreateListing/ListingSuccess.jsx";
 
 function App() {
   const [serverStatus, setServerStatus] = useState("Checking server...");
@@ -56,6 +57,7 @@ function App() {
             <Route path="/register" element={<RegistrationPage />} />
             <Route path="/products/clothing" element={<Clothing />} />
             <Route path="/create-listing" element={<CreateListing />} />
+            <Route path="/listing-success" element={<ListingSuccess />} />
             <Route
               path="/products/:category/:productId"
               element={<ProductDetail />}
