@@ -74,8 +74,52 @@ const getCart = async (req, res) => {
   }
 };
 
+const getTopThreeProducts = async (req, res) => {
+  try {
+    const topProducts = await Order.aggregate([
+      { $unwind: "$orderItems" },
+      {
+        $group: {
+          _id: "$orderItems.product",
+          count: { $sum: 1 }
+        }
+      },
+      { $sort: { count: -1 } },
+      { $limit: 3 },
+      {
+        $lookup: {
+          from: "clothings",
+          localField: "_id",
+          foreignField: "_id",
+          as: "productDetails"
+        }
+      },
+      {
+        $project: {
+          _id: 1,
+          count: 1,
+          productDetails: { $arrayElemAt: ["$productDetails", 0] }
+        }
+      }
+    ]);
+
+    res.status(200).json({
+      success: true,
+      data: topProducts
+    });
+  } catch (error) {
+    console.error('Error fetching top products:', error);
+    res.status(500).send({
+      success: false,
+      message: 'Failed to fetch top products',
+      error: error.message
+    });
+  }
+};
+
 module.exports = {
   addItemToCart,
   getCart,
   getCurrentOrder,
+  getTopThreeProducts
 };
