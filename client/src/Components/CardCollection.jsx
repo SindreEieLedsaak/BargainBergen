@@ -26,7 +26,7 @@ export const CardCollection = ({
       <h1 className="text-3xl pt-16 px-3 text-primary-900 ">{title}</h1>
       <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-10">
         {items.map((item, index) => (
-          <div key={index}>
+          <div key={index} >
             <CategoryCard item={item} />
           </div>
         ))}

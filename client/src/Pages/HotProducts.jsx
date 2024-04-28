@@ -29,7 +29,7 @@ const HotProducts = () => {
     return (
         <div class="p-5">
             <h1 class="text-3xl pt-16 px-3 text-primary-900 ">Hot products</h1>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-10">
                 {products.length > 0 ? (products.map(product => (
                     <ProductCard key={product._id} endpoint="clothings" product={{
                         _id: product.productDetails._id,

@@ -66,16 +66,14 @@ const profiles = [
 
 const MainPage = ({ serverStatus }) => {
   return (
-    <div className="min-h-screen bg-white-to-green">
-      <h1 className="text-3xl text-primary text-center">Server Status</h1>
-      <p className="text-center">{serverStatus}</p>
+    <div className="min-h-screen ">
       <HotProducts />
       <CardCollection
         title={"Popular categories"}
         items={categories}
         category={true}
       />
-      <CardCollection title={"Near me"} items={items} category={true} />
+    
       <ProfileCollection profiles={profiles} header={"Recommended profiles"} />
     </div>
   );

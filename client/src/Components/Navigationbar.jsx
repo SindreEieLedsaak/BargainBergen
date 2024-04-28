@@ -28,9 +28,9 @@ export function NavigationBar() {
 
 
   const menuItems = [
-    { title: "Features", href: "#" },
+    
     { title: "Home", href: "/" },
-    { title: "For you", href: "#" },
+   
   ];
 
   let navigate = useNavigate();
@@ -111,11 +111,6 @@ export function NavigationBar() {
               </DropdownItem>
               <DropdownItem key="settings" onClick={navigateToCreateListing}>
                 Create Listing
-              </DropdownItem>
-              <DropdownItem key="analytics">Analytics</DropdownItem>
-              <DropdownItem key="system">System</DropdownItem>
-              <DropdownItem key="help_and_feedback">
-                Help & Feedback
               </DropdownItem>
               <DropdownItem key="logout" onClick={logout} color="danger">
                 Log Out

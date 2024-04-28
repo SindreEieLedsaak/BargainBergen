@@ -45,8 +45,8 @@ function App() {
       logoutUri="http://localhost:5173"
     >
       <Router>
+      <div className="max-w-screen-3xl mx-auto bg-white-to-green ">
         <NavigationBar />
-        <div className="max-w-screen-3xl mx-auto">
           <Routes>
             <Route
               path="/"
