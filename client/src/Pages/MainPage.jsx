@@ -67,6 +67,8 @@ const profiles = [
 const MainPage = ({ serverStatus }) => {
   return (
     <div className="min-h-screen ">
+      <h1 className="text-3xl text-primary text-center">Server Status</h1>
+      <p className="text-center">{serverStatus}</p>
       <HotProducts />
       <CardCollection
         title={"Popular categories"}
