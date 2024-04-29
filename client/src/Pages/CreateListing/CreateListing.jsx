@@ -6,6 +6,7 @@ import { FormField } from "./Form/FormField";
 import { useKindeAuth } from "@kinde-oss/kinde-auth-react";
 import productService from "../../services/productService";
 import { useNavigate } from "react-router-dom";
+import { ListingSuccess } from "./ListingSuccess";
 
 export function CreateListing() {
   const [listing, setListing] = useState(null);
